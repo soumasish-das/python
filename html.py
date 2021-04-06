@@ -13,21 +13,23 @@ def getHTMLReport(reportTitle, header_dict, details_dict, output_file_path):
     chart_call = ''''''
     body = '''<button onclick = "generate()" style="width: 150px; height: 30px; color: blue;"><b><u>Generate PDF</u></b></button>\n
 <div id="content">
-<h1 style="text-align: center; font-size: 32px; font-family: Verdana; color: #006600";><u>''' + reportTitle + '''</u></h1\n<br \><br \>\n\n'''
+<h1 style="text-align: center; font-size: 32px; font-family: Verdana; color: #006600";><u>''' + reportTitle + '''</u></h1>\n<br \><br \>\n\n'''
     
     for key in details_dict.keys():
        details = details + '''var ''' + key + '''_details = [ ''' + header_dict[key] + ''', ''' + details_dict[key] + ''' ]\n'''
        
-       chart_call = chart_call + '''google.setOnLoadCallback(function(){drawChart("''' + key + '''", "pie''' + key + '''", "table''' + key + '''", ''' + key + '''_details);});\n'''
+       chart_call = chart_call + '''google.setOnLoadCallback(function(){drawChart("''' + key + '''", "column''' + key + '''", "table''' + key + '''", ''' + key + '''_details);});\n'''
        
        body = body + '''<h1 style="text-align: center;">''' + key + ''' Summary</h1>
 <table class="divtable">
-<tr>
+<tr style="text-align: center;">
   <td>
-     <div class="divstyle" id="table''' + key + '''"></div>
+     <div class="divstyle_table" id="table''' + key + '''"></div>
   </td>
-  <td style="border-left: 100px solid #FFF;">
-     <div class="divstyle" id="pie''' + key + '''"></div>
+</tr>
+<tr style="text-align: center;">
+  <td style="border-top: 25px solid #FFF;">
+     <div class="divstyle_column" id="column''' + key + '''"></div>
   </td>
 </tr>
 </table>\n
@@ -35,14 +37,14 @@ def getHTMLReport(reportTitle, header_dict, details_dict, output_file_path):
        
     chart_load = '''\ngoogle.charts.load('current', {'packages':['corechart','table']});\n\n'''       
 
-    chart_func_style = '''\nfunction drawChart(item, containerPie, containerTable, dataArray)
+    chart_func_style = '''\nfunction drawChart(item, containerColumn, containerTable, dataArray)
 {
     var data = google.visualization.arrayToDataTable(dataArray, false);
-	var containerPieDiv = document.getElementById(containerPie);
+	var containerColumnDiv = document.getElementById(containerColumn);
 	var containerTableDiv = document.getElementById(containerTable);
 	
-	let pie = new google.visualization.PieChart(containerPieDiv);
-	var pieOptions = {title: item, titleTextStyle: {color: '#006600', fontSize: 20}, is3D: true, backgroundColor: {fill:'#ffffe9', stroke:'red', strokeWidth:3}, chartArea:{width:'75%',height:'75%'}, legend:{alignment: 'center', textStyle:{bold: true, fontSize: 14}}, pieSliceText: 'value', pieSliceTextStyle:{fontSize: 15, bold: true}};
+	let column = new google.visualization.ColumnChart(containerColumnDiv);
+	var columnOptions = {backgroundColor: {fill:'#ffffe9', stroke:'red', strokeWidth:3}, chartArea:{width:'80%',height:'80%'}, animation: {startup: true, easing: 'out', duration: 1000}, legend: {position: 'top', alignment: 'center', textStyle:{bold: true}}, hAxis: {textStyle:{bold: true}}};
     
 	let table = new google.visualization.Table(containerTableDiv);
 	var tableOptions = {allowHtml: true, width:'100%', height:'100%', cssClassNames: { 
@@ -55,14 +57,14 @@ def getHTMLReport(reportTitle, header_dict, details_dict, output_file_path):
       rowNumberCell: 'rowNumberCell'
     }};
    	
-    pie.draw(data, pieOptions);
+    column.draw(data, columnOptions);
 	table.draw(data, tableOptions);
 	
 	google.visualization.events.addListener(table, 'sort',
         function(event)
 	    {
            data.sort([{column: event.column, desc: !event.ascending}]);
-           pie.draw(data, pieOptions);
+           column.draw(data, columnOptions);
         });
 }
 
@@ -73,7 +75,7 @@ function generate() {
     var PDF_Width = HTML_Width + (top_left_margin * 2);
     var PDF_Height = (PDF_Width * 1.5) + (top_left_margin * 2);
     var canvas_image_width = HTML_Width;
-    var canvas_image_height = HTML_Height+400;
+    var canvas_image_height = HTML_Height;
 
     var totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
 
@@ -91,15 +93,20 @@ function generate() {
 </script>
 
 <style>
-.divstyle {
-  width: 450px;
+.divstyle_table {
+  width: 1200px;
   height: 300px;
 }
 
+.divstyle_column {
+  width: 1200px;
+  height: 500px;
+}
+
 .divtable {
-  border:none;
-  margin-left:auto;
-  margin-right:auto;
+  border: none;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 table {
@@ -123,7 +130,7 @@ table {
   background-color: rgb(83, 133, 180);
   border-color: rgb(151, 150, 168) !important;
   color: white;
-  height: 50px;
+  height: 40px;
 }
 
 .oddTableRow {
