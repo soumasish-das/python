@@ -2,21 +2,9 @@ from html import getHTMLReport
 
 #domain_list = ["Activity", "Party", "Contract", "ContractOption", "ContractOptionFund", "ContractPayout"]
 
-header_dict = {"Activity" : "['Status', 'Number of test cases']",
-"Party" : "['Status', 'Number of test cases']",
-"Contract" : "['Status', 'Number of test cases']",
-"ContractOption" : "['Status', 'Number of test cases']",
-"ContractOptionFund" : "['Status', 'Number of test cases']",
-"ContractPayout" : "['Status', 'Number of test cases']"
-}
+header_dict = {"SourcetoIngestion" : "['Domain', 'Pass', 'Fail', 'No Run']"}
 
-details_dict = {"Activity" : "['Pass', 7], ['Fail', 3], ['No Run', 1]",
-"Party" : "['Pass', 17], ['Fail', 13], ['No Run', 11]",
-"Contract" : "['Pass', 8], ['Fail', 9], ['No Run', 10]",
-"ContractOption" : "['Pass', 15], ['Fail', 16], ['No Run', 17]",
-"ContractOptionFund" : "['Pass', 3], ['Fail', 4], ['No Run', 2]",
-"ContractPayout" : "['Pass', 25], ['Fail', 5], ['No Run', 0]"
-}
+details_dict = {"SourcetoIngestion" : "['Activity', 7, 3, 1], ['Party', 17, 13, 11], ['Contract', 8, 9, 10], ['ContractOption', 15, 16, 17], ['ContractOptionFund', 3, 4, 2], ['ContractPayout', 25, 5, 0]"}
 
 output_file_path = "report.html"
 
