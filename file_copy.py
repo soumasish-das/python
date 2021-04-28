@@ -34,6 +34,8 @@ spark = SparkSession.builder.appName("Test").getOrCreate()
 
 sparkdf = spark.read.options(header='true', inferSchema='true', delimiter='\t')\
                     .csv(output_dir + "*.am1*")
+
+sparkdf = sparkdf.toDF(*(c.replace('.', '_') for c in sparkdf.columns))
 sparkdf = sparkdf.select([when(isnan(c) | isnull(c), None).otherwise(col(c)).alias(c) for c in sparkdf.columns])
 
 sparkdf.createOrReplaceTempView("test")
