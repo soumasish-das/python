@@ -16,6 +16,7 @@ print("\n")
 output_dir = "C:\\Users\\Vicky\\Minnie\\"
 dest_list = []
 
+#Copy files
 for file in mylist:
     #Generate name of copied file using random numbers
     #random.randint(100,1000) gives a number between 100 and 1000
@@ -38,7 +39,7 @@ sparkdf = sparkdf.select([when(isnan(c) | isnull(c), None).otherwise(col(c)).ali
 sparkdf.createOrReplaceTempView("test")
 spark.sql("SELECT count(*) FROM test").show()
 
-spar.stop()
+spark.stop()
 
 #Delete the copied file if it exists
 for file in dest_list:
