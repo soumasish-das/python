@@ -43,7 +43,7 @@ spark.sql("SELECT count(*) FROM test").show()
 
 spark.stop()
 
-#Delete the copied file if it exists
+#Delete the copied files if they exist
 for file in dest_list:
    if os.path.isfile(file):
       os.remove(file)
