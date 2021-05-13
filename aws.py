@@ -4,13 +4,6 @@ import boto3
 import pandas
 import time
 
-'''client = boto3.client(
-    's3',
-    aws_access_key_id = 'AKIAZCEXFQX2AF4RO7DP',
-    aws_secret_access_key = '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',
-    region_name = 'ap-south-1'
-)'''
-
 #Default profile
 client_athena = boto3.client('athena')
 client_s3 = boto3.client('s3')
