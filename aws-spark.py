@@ -114,3 +114,4 @@ spark.stop()
 
 
 org.apache.hadoop.fs.s3a.TemporaryAWSCredentialsProvider
+conf.set("spark.hadoop.fs.s3a.session.token", "<session_token>")
