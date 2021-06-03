@@ -71,6 +71,8 @@ conf.set("spark.jars.packages", "org.apache.hadoop:hadoop-aws:2.7.4")
 conf.set("spark.hadoop.fs.s3a.impl", "org.apache.hadoop.fs.s3a.S3AFileSystem")
 conf.set("spark.hadoop.fs.s3a.access.key", "AKIAZCEXFQX2DZI5VUYC")
 conf.set("spark.hadoop.fs.s3a.secret.key", "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")
+#conf.set("spark.hadoop.fs.s3a.session.token", "<session_token>")
+#conf.set("spark.hadoop.fs.s3a.aws.credentials.provider", "org.apache.hadoop.fs.s3a.TemporaryAWSCredentialsProvider")
 conf.set("spark.hadoop.fs.s3a.aws.credentials.provider", "org.apache.hadoop.fs.s3a.BasicAWSCredentialsProvider")
 conf.set("spark.hadoop.fs.s3a.endpoint", "s3.ap-south-1.amazonaws.com")
 
@@ -111,7 +113,3 @@ else:
     print(error)
 
 spark.stop()
-
-
-org.apache.hadoop.fs.s3a.TemporaryAWSCredentialsProvider
-conf.set("spark.hadoop.fs.s3a.session.token", "<session_token>")
