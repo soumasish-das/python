@@ -111,3 +111,6 @@ else:
     print(error)
 
 spark.stop()
+
+
+org.apache.hadoop.fs.s3a.TemporaryAWSCredentialsProvider
