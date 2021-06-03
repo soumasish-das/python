@@ -9,7 +9,6 @@ from pyspark.sql import SparkSession
 from pyspark import SparkConf
 from pyspark import SparkContext
 
-
 # Default profile
 client_athena = boto3.client('athena')
 
@@ -63,18 +62,32 @@ while max_execution > 0 and state in ['RUNNING', 'QUEUED']:
 
 print(filename)
 
+# filename = "s3a://test-bucket-python/output/64dc1b3c-8c1c-489b-bd89-eb8c886d8968.csv"
+
 # --------------------------------
 # Configure spark to connect to S3
 # --------------------------------
 conf = SparkConf()
-conf.set("spark.jars.packages", "org.apache.hadoop:hadoop-aws:2.7.4")
+conf.set("spark.jars.packages", "org.apache.hadoop:hadoop-aws:3.2.0")
 conf.set("spark.hadoop.fs.s3a.impl", "org.apache.hadoop.fs.s3a.S3AFileSystem")
-conf.set("spark.hadoop.fs.s3a.access.key", "<access_key>")
-conf.set("spark.hadoop.fs.s3a.secret.key", "<secret_id>")
-#conf.set("spark.hadoop.fs.s3a.session.token", "<session_token>")
-#conf.set("spark.hadoop.fs.s3a.aws.credentials.provider", "org.apache.hadoop.fs.s3a.TemporaryAWSCredentialsProvider")
-conf.set("spark.hadoop.fs.s3a.aws.credentials.provider", "org.apache.hadoop.fs.s3a.BasicAWSCredentialsProvider")
 conf.set("spark.hadoop.fs.s3a.endpoint", "s3.ap-south-1.amazonaws.com")
+
+# ---------------------------------------------------------------------
+# For standard credentials (access key + secret key), use the following
+# ---------------------------------------------------------------------
+conf.set("spark.hadoop.fs.s3a.access.key", "access_key")
+conf.set("spark.hadoop.fs.s3a.secret.key", "secret_key")
+conf.set("spark.hadoop.fs.s3a.aws.credentials.provider", "org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider")
+# ---------------------------------------------------------------------
+
+# --------------------------------------------
+# For temporary credentials, use the following
+# --------------------------------------------
+# conf.set("spark.hadoop.fs.s3a.access.key", "access_key")
+# conf.set("spark.hadoop.fs.s3a.secret.key", "secret_key")
+# conf.set("spark.hadoop.fs.s3a.session.token", "session_token")
+# conf.set("spark.hadoop.fs.s3a.aws.credentials.provider", "org.apache.hadoop.fs.s3a.TemporaryAWSCredentialsProvider")
+# --------------------------------------------
 
 sc = SparkContext(conf=conf)
 sc.setSystemProperty("com.amazonaws.services.s3.enableV4", "true")
@@ -96,10 +109,10 @@ spark = SparkSession.builder.appName("AWS_Spark").config(conf=conf).getOrCreate(
 # # Set configurations using spark context
 # sc.setSystemProperty("com.amazonaws.services.s3.enableV4", "true")
 # sc._jsc.hadoopConfiguration().set("fs.s3a.impl", "org.apache.hadoop.fs.s3a.S3AFileSystem")
-# sc._jsc.hadoopConfiguration().set("fs.s3a.access.key", "AKIAZCEXFQX2DZI5VUYC")
-# sc._jsc.hadoopConfiguration().set("fs.s3a.secret.key", "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")
+# sc._jsc.hadoopConfiguration().set("fs.s3a.access.key", "access_key")
+# sc._jsc.hadoopConfiguration().set("fs.s3a.secret.key", "secret_key")
 # sc._jsc.hadoopConfiguration() \
-#     .set("fs.s3a.aws.credentials.provider", "org.apache.hadoop.fs.s3a.BasicAWSCredentialsProvider")
+#     .set("fs.s3a.aws.credentials.provider", "org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider")
 # sc._jsc.hadoopConfiguration().set("fs.s3a.endpoint", "s3.ap-south-1.amazonaws.com")
 # ----------------------------------------------------------------------
 # Note that, when using <context>._jsc.hadoopConfiguration() as above,
@@ -109,6 +122,7 @@ spark = SparkSession.builder.appName("AWS_Spark").config(conf=conf).getOrCreate(
 if filename != '':
     sparkdf = spark.read.options(header='true', inferSchema='true').csv(filename)
     sparkdf.show(sparkdf.count())
+    print("Number of records: {}".format(sparkdf.count()))
 else:
     print(error)
 
