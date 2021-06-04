@@ -15,7 +15,7 @@ client_athena = boto3.client('athena')
 # Athena params
 params = {
     'region': 'ap-south-1',
-    'database': 'homes',
+    'database': 'sampledb',
     'bucket': 'test-bucket-python',
     'path': 'output',
     'query': 'SELECT * FROM "AwsDataCatalog"."sampledb"."homes";'
