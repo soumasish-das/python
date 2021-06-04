@@ -100,7 +100,7 @@ spark = SparkSession.builder.appName("AWS_Spark").config(conf=conf).getOrCreate(
 # ----------------------------------------------------------------------
 # spark = SparkSession.builder \
 #     .appName("AWS_Spark") \
-#     .config("spark.jars.packages", "org.apache.hadoop:hadoop-aws:2.7.4") \
+#     .config("spark.jars.packages", "org.apache.hadoop:hadoop-aws:3.2.0") \
 #     .getOrCreate()
 #
 # # Get spark context
