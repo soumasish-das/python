@@ -62,7 +62,7 @@ while max_execution > 0 and state in ['RUNNING', 'QUEUED']:
 
 print(filename)
 
-# filename = "s3a://test-bucket-python/output/64dc1b3c-8c1c-489b-bd89-eb8c886d8968.csv"
+# filename = "s3a://test-bucket-python/output/edbb40cb-0f1e-4de7-9ccc-8a4348413f12.csv"
 
 # --------------------------------
 # Configure spark to connect to S3
@@ -72,12 +72,18 @@ conf.set("spark.jars.packages", "org.apache.hadoop:hadoop-aws:3.2.0")
 conf.set("spark.hadoop.fs.s3a.impl", "org.apache.hadoop.fs.s3a.S3AFileSystem")
 conf.set("spark.hadoop.fs.s3a.endpoint", "s3.ap-south-1.amazonaws.com")
 
+# --------------------------------------------------------------
+# For profile credentials from .aws directory, use the following
+# --------------------------------------------------------------
+conf.set("spark.hadoop.fs.s3a.aws.credentials.provider", "com.amazonaws.auth.profile.ProfileCredentialsProvider")
+# --------------------------------------------------------------
+
 # ---------------------------------------------------------------------
 # For standard credentials (access key + secret key), use the following
 # ---------------------------------------------------------------------
-conf.set("spark.hadoop.fs.s3a.access.key", "access_key")
-conf.set("spark.hadoop.fs.s3a.secret.key", "secret_key")
-conf.set("spark.hadoop.fs.s3a.aws.credentials.provider", "org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider")
+# conf.set("spark.hadoop.fs.s3a.access.key", "access_key")
+# conf.set("spark.hadoop.fs.s3a.secret.key", "secret_key")
+# conf.set("spark.hadoop.fs.s3a.aws.credentials.provider", "org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider")
 # ---------------------------------------------------------------------
 
 # --------------------------------------------
