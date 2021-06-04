@@ -121,7 +121,7 @@ spark = SparkSession.builder.appName("AWS_Spark").config(conf=conf).getOrCreate(
 
 if filename != '':
     sparkdf = spark.read.options(header='true', inferSchema='true').csv(filename)
-    sparkdf.show(sparkdf.count())
+    sparkdf.show(sparkdf.count(), truncate=False)
     print("Number of records: {}".format(sparkdf.count()))
 else:
     print(error)
