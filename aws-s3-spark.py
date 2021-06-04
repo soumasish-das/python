@@ -116,7 +116,7 @@ spark = SparkSession.builder.appName("AWS_Spark").config(conf=conf).getOrCreate(
 # sc._jsc.hadoopConfiguration().set("fs.s3a.endpoint", "s3.ap-south-1.amazonaws.com")
 # ----------------------------------------------------------------------
 # Note that, when using <context>._jsc.hadoopConfiguration() as above,
-# "spark.hadoop." prefix is not provided in property name
+# "spark.hadoop." prefix is not necessary in property name
 # ----------------------------------------------------------------------
 
 if filename != '':
