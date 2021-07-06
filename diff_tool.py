@@ -9,7 +9,7 @@ from pyspark.sql.functions import when, col
 spark = SparkSession.builder.appName("Diff_Tool").getOrCreate()
 spark.sparkContext.setLogLevel("ERROR")
 
-# Source dataframe
+# SOURCE dataframe
 df_source = spark.createDataFrame \
         (
         [
@@ -28,7 +28,7 @@ df_source = spark.createDataFrame \
         )
 df_source = df_source.select([when(col(c) == '', None).otherwise(col(c)).alias(c) for c in df_source.columns])
 
-# Target dataframe
+# TARGET dataframe
 df_target = spark.createDataFrame \
         (
         [
