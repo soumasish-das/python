@@ -41,7 +41,7 @@ df_target = spark.createDataFrame \
             (107, "Diana Lorentz", "Diana@test.com", "590.423.5567"),
             (109, "Scott Tiger", "scott@test.com", "590.423.4321")
         ],
-        ["EMP_ID", "EMP_NAME", "EMP_EMAIL", "EMP_PHONE"]
+        ["EMPLOYEE_ID", "EMPLOYEE_NAME", "EMPLOYEE_EMAIL", "EMPLOYEE_PHONE"]
     )
 df_target = df_target.select([when(col(c) == '', None).otherwise(col(c)).alias(c) for c in df_target.columns])
 
@@ -50,6 +50,13 @@ df_source.show()
 
 print("TARGET:")
 df_target.show()
+
+# -------------------------------------------------
+# Change column names of TARGET to that of SOURCE
+# This is done to ensure ease of comparison of data
+# -------------------------------------------------
+df_target = df_target.toDF(*df_source.columns)
+# -------------------------------------------------
 
 df_source.createOrReplaceTempView("SOURCE")
 df_target.createOrReplaceTempView("TARGET")
