@@ -171,7 +171,13 @@ sql += "(COUNT(" + diff_key_sql_join_target + ")-1)||' duplicate row(s) in TARGE
 sql += "FROM TARGET t GROUP BY 1 HAVING COUNT(" + diff_key_sql_join_target + ") > 1"
 # ------------------------
 
-spark.sql(sql).show(truncate=False)
+diff_cols = ["KEY[" + diff_key.replace(',', ':') + "]", "COLUMN", "SOURCE_VALUE", "TARGET_VALUE", "DIFF_COMMENT"]
+
+# DIFF dataframe
+df_diff = spark.sql(sql)
+df_diff = df_diff.toDF(*diff_cols)
+
+df_diff.show(truncate=False)
 
 spark.catalog.dropTempView("SOURCE")
 spark.catalog.dropTempView("TARGET")
