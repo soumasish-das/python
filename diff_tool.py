@@ -25,7 +25,7 @@ df_source = spark.createDataFrame \
             (110, "Clark Kent","", "")
         ],
         ["EMP_ID", "EMP_NAME", "EMP_EMAIL", "EMP_PHONE"]
-    )
+        )
 df_source = df_source.select([when(col(c) == '', None).otherwise(col(c)).alias(c) for c in df_source.columns])
 
 # Target dataframe
@@ -42,7 +42,7 @@ df_target = spark.createDataFrame \
             (109, "Scott Tiger", "scott@test.com", "590.423.4321")
         ],
         ["EMPLOYEE_ID", "EMPLOYEE_NAME", "EMPLOYEE_EMAIL", "EMPLOYEE_PHONE"]
-    )
+        )
 df_target = df_target.select([when(col(c) == '', None).otherwise(col(c)).alias(c) for c in df_target.columns])
 
 print("SOURCE:")
