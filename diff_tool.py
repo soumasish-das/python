@@ -172,3 +172,8 @@ sql += "FROM TARGET t GROUP BY 1 HAVING COUNT(" + diff_key_sql_join_target + ") 
 # ------------------------
 
 spark.sql(sql).show(truncate=False)
+
+spark.catalog.dropTempView("SOURCE")
+spark.catalog.dropTempView("TARGET")
+
+spark.stop()
