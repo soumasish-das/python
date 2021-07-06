@@ -56,9 +56,6 @@ df_target.createOrReplaceTempView("TARGET")
 
 diff_key = "EMP_ID,EMP_NAME"
 
-col_list_without_key = df_source.columns
-diff_key_sql_join_source = ""
-diff_key_sql_join_target = ""
 sql = ""
 
 # ----------------------------------
@@ -73,6 +70,10 @@ sql = ""
 #    Ex.: coalesce(s.EMP_ID,'')||':'||coalesce(s.EMP_NAME,'') for SOURCE
 #         coalesce(t.EMP_ID,'')||':'||coalesce(t.EMP_NAME,'') for TARGET
 # ----------------------------------
+col_list_without_key = df_source.columns
+diff_key_sql_join_source = ""
+diff_key_sql_join_target = ""
+
 for item in diff_key.split(","):
     col_list_without_key.remove(item)
     diff_key_sql_join_source += "coalesce(s." + item + ",'')||':'||"
