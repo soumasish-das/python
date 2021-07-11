@@ -6,6 +6,7 @@ findspark.init()
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import when, col
 
+# .master("spark://192.168.0.101:7077")
 spark = SparkSession.builder.appName("Diff_Tool").getOrCreate()
 spark.sparkContext.setLogLevel("ERROR")
 
