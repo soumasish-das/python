@@ -3,6 +3,7 @@ findspark.init()
 
 from pyspark.sql import SparkSession
 
+# .master("spark://192.168.0.101:7077")
 spark = SparkSession.builder \
     .appName("Spark-JDBC") \
     .config("spark.jars", "D:\\Softwares\\MySQL\\Connector J 8.0\\mysql-connector-java-8.0.25.jar,"
