@@ -133,3 +133,10 @@ else:
     print(error)
 
 spark.stop()
+
+# Cleaning up Athena result files in S3
+client_s3 = boto3.client('s3')
+bucket = filename.replace('s3a://', '').split('/', 1)[0]
+key = filename.replace('s3a://', '').split('/', 1)[1]
+client_s3.delete_objects(Bucket=bucket, Delete={'Objects': [{'Key': key}, {'Key': key+".metadata"}]})
+print("\nAthena output files removed from S3.")
