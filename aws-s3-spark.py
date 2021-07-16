@@ -81,17 +81,17 @@ conf.set("spark.hadoop.fs.s3a.aws.credentials.provider", "com.amazonaws.auth.pro
 # ---------------------------------------------------------------------
 # For standard credentials (access key + secret key), use the following
 # ---------------------------------------------------------------------
-# conf.set("spark.hadoop.fs.s3a.access.key", "access_key")
-# conf.set("spark.hadoop.fs.s3a.secret.key", "secret_key")
+# conf.set("spark.hadoop.fs.s3a.access.key", "<access_key>")
+# conf.set("spark.hadoop.fs.s3a.secret.key", "<secret_key>")
 # conf.set("spark.hadoop.fs.s3a.aws.credentials.provider", "org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider")
 # ---------------------------------------------------------------------
 
 # --------------------------------------------
 # For temporary credentials, use the following
 # --------------------------------------------
-# conf.set("spark.hadoop.fs.s3a.access.key", "access_key")
-# conf.set("spark.hadoop.fs.s3a.secret.key", "secret_key")
-# conf.set("spark.hadoop.fs.s3a.session.token", "session_token")
+# conf.set("spark.hadoop.fs.s3a.access.key", "<access_key>")
+# conf.set("spark.hadoop.fs.s3a.secret.key", "<secret_key>")
+# conf.set("spark.hadoop.fs.s3a.session.token", "<session_token>")
 # conf.set("spark.hadoop.fs.s3a.aws.credentials.provider", "org.apache.hadoop.fs.s3a.TemporaryAWSCredentialsProvider")
 # --------------------------------------------
 
