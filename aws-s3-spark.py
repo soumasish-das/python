@@ -115,8 +115,8 @@ spark = SparkSession.builder.appName("AWS_Spark").config(conf=conf).getOrCreate(
 # # Set configurations using spark context
 # sc.setSystemProperty("com.amazonaws.services.s3.enableV4", "true")
 # sc._jsc.hadoopConfiguration().set("fs.s3a.impl", "org.apache.hadoop.fs.s3a.S3AFileSystem")
-# sc._jsc.hadoopConfiguration().set("fs.s3a.access.key", "access_key")
-# sc._jsc.hadoopConfiguration().set("fs.s3a.secret.key", "secret_key")
+# sc._jsc.hadoopConfiguration().set("fs.s3a.access.key", "<access_key>")
+# sc._jsc.hadoopConfiguration().set("fs.s3a.secret.key", "<secret_key>")
 # sc._jsc.hadoopConfiguration() \
 #     .set("fs.s3a.aws.credentials.provider", "org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider")
 # sc._jsc.hadoopConfiguration().set("fs.s3a.endpoint", "s3.ap-south-1.amazonaws.com")
