@@ -98,7 +98,7 @@ conf.set("spark.hadoop.fs.s3a.aws.credentials.provider", "com.amazonaws.auth.pro
 # --------------------------
 # Set other Spark parameters
 # --------------------------
-conf.set("spark.master", "spark://192.168.0.103:7077")
+conf.set("spark.master", "spark://<master_host>:<master_port")
 conf.setAppName("AWS_Spark")
 # --------------------------
 
