@@ -105,7 +105,7 @@ conf.setAppName("AWS_Spark")
 sc = SparkContext(conf=conf)
 sc.setSystemProperty("com.amazonaws.services.s3.enableV4", "true")
 
-spark = SparkSession.builder.appName("AWS_Spark").config(conf=conf).getOrCreate()
+spark = SparkSession.builder.config(conf=conf).getOrCreate()
 # --------------------------------
 
 # ----------------------------------------------------------------------
