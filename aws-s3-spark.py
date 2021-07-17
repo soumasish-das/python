@@ -95,6 +95,13 @@ conf.set("spark.hadoop.fs.s3a.aws.credentials.provider", "com.amazonaws.auth.pro
 # conf.set("spark.hadoop.fs.s3a.aws.credentials.provider", "org.apache.hadoop.fs.s3a.TemporaryAWSCredentialsProvider")
 # --------------------------------------------
 
+# --------------------------
+# Set other Spark parameters
+# --------------------------
+conf.set("spark.master", "spark://192.168.0.103:7077")
+conf.setAppName("AWS_Spark")
+# --------------------------
+
 sc = SparkContext(conf=conf)
 sc.setSystemProperty("com.amazonaws.services.s3.enableV4", "true")
 
