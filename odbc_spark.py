@@ -11,7 +11,7 @@ from pathlib import Path
 from pyspark.sql import SparkSession
 
 
-# Function to write to parquet file in chunks
+# Function to write data to parquet file in chunks
 def chunk_csv(df, filename):
     print("Started writing to " + filename)
     # Create parquet file using fastparquet engine and compress in gzip format
