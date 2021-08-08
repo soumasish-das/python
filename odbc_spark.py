@@ -19,7 +19,7 @@ def chunk_csv(df, filename):
     print(filename + " written successfully.")
 
 
-# Get data from ODBC to spark
+# Function to get data from ODBC to spark
 def odbc_to_spark(dir, output, conn, count, max_processes, table, spark):
     # Remove directory containing parquet files if it exists (to avoid unwanted files due to errors in previous run)
     shutil.rmtree(dir, ignore_errors=True)
