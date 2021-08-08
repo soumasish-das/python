@@ -14,6 +14,7 @@ from pyspark.sql import SparkSession
 # Function to write to parquet file in chunks
 def chunk_csv(df, filename):
     print("Started writing to " + filename)
+    # Create parquet file using fastparquet engine and compress in gzip format
     df.to_parquet(filename, engine='fastparquet', compression='gzip', index=False)
     print(filename + " written successfully.")
 
