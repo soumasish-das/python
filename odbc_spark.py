@@ -12,7 +12,7 @@ from pyspark.sql import SparkSession
 
 
 # Function to write data to parquet file in chunks
-def chunk_csv(df, filename):
+def chunk_parquet(df, filename):
     print("Started writing to " + filename)
     # Create parquet file using fastparquet engine and compress in gzip format
     df.to_parquet(filename, engine='fastparquet', compression='gzip', index=False)
@@ -39,10 +39,11 @@ def odbc_to_spark(output, conn, count, max_processes, table, spark):
 
     chunk_num = 1
     for chunk in data:
-        # Process each data frame
+        # Save each chunk as a parquet file
         filename = output + str(chunk_num) + ".parquet"
-        # Multiprocess
-        pool.apply_async(chunk_csv, args=(chunk, filename,))
+        
+        # Apply multiprocess
+        pool.apply_async(chunk_parquet, args=(chunk, filename,))
         chunk_num += 1
 
     # Close multiprocessing pool
