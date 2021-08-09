@@ -20,13 +20,7 @@ def chunk_csv(df, filename):
 
 
 # Function to get data from ODBC to spark
-def odbc_to_spark(dir, output, conn, count, max_processes, table, spark):
-    # Remove directory containing parquet files if it exists (to avoid unwanted files due to errors in previous run)
-    shutil.rmtree(dir, ignore_errors=True)
-
-    # Create directory for storing parquet files
-    Path(dir).mkdir(parents=True, exist_ok=True)
-
+def odbc_to_spark(output, conn, count, max_processes, table, spark):
     # Calculate size of each chunk
     # chunksize = rowcount/max_processes, if rowcount is divisible by max_processes
     # chunksize = (rowcount/max_processes) + 1, if rowcount is not divisible by max_processes
@@ -59,9 +53,6 @@ def odbc_to_spark(dir, output, conn, count, max_processes, table, spark):
     spark_df = spark.read.parquet(output + "*.parquet")
     print("\nCount from Spark DF (" + table + "): " + str(spark_df.count()) + "\n\n")
 
-    # Remove directory containing parquet files at the end
-    shutil.rmtree(dir, ignore_errors=True)
-
     return spark_df
 
 
@@ -88,12 +79,21 @@ if __name__ == '__main__':
     print("\nStart\n\n")
 
     for table in ["Products", "Sales"]:
+        # Remove directory containing parquet files if it exists (to avoid unwanted files due to errors in previous run)
+        shutil.rmtree(dir, ignore_errors=True)
+
+        # Create directory for storing parquet files
+        Path(dir).mkdir(parents=True, exist_ok=True)
+        
         # Count of rows
         df = pd.read_sql("SELECT count(*) FROM " + table, conn)
         count = df.iloc[0, 0]
         print("Count from DB (" + table + "): " + str(count) + "\n")
 
-        odbc_to_spark(dir, output, conn, count, max_processes, table, spark)
+        odbc_to_spark(output, conn, count, max_processes, table, spark)
+
+        # Remove directory containing parquet files at the end
+        shutil.rmtree(dir, ignore_errors=True)
 
     print("Complete\n")
     print("Time taken: " + str(time.time() - t0) + " seconds\n")
