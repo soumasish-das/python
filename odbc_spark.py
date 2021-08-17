@@ -6,6 +6,8 @@ import pandas as pd
 import time
 import multiprocessing as mp
 import shutil
+import random
+import subprocess
 
 from pathlib import Path
 from pyspark.sql import SparkSession
@@ -20,7 +22,7 @@ def chunk_parquet(df, filename):
 
 
 # Function to get data from ODBC to spark
-def odbc_to_spark(output, conn, count, max_processes, table, spark):
+def odbc_to_spark(output, conn, count, max_processes, table, spark, hdfs_dir, local_dir, hdfs_namenode):
     # Calculate size of each chunk
     # chunksize = rowcount/max_processes, if rowcount is divisible by max_processes
     # chunksize = (rowcount/max_processes) + 1, if rowcount is not divisible by max_processes
@@ -41,7 +43,7 @@ def odbc_to_spark(output, conn, count, max_processes, table, spark):
     for chunk in data:
         # Save each chunk as a parquet file
         filename = output + str(chunk_num) + ".parquet"
-        
+
         # Apply multiprocess
         pool.apply_async(chunk_parquet, args=(chunk, filename,))
         chunk_num += 1
@@ -50,9 +52,21 @@ def odbc_to_spark(output, conn, count, max_processes, table, spark):
     pool.close()
     pool.join()
 
-    # Read data from parquet files into spark
-    spark_df = spark.read.parquet(output + "*.parquet")
+    # Remove hdfs directory for parquet files
+    result = str(subprocess.check_output("hdfs dfs -rm -r -f -skipTrash " + hdfs_dir, shell=True).strip(), 'utf-8')
+    print(result)
+
+    # Copy parquet files from local to HDFS
+    subprocess.run("hdfs dfs -copyFromLocal -f " + local_dir + " " + hdfs_namenode + "/", shell=True)
+    print("Parquet files copied to " + hdfs_dir + "\n")
+
+    # Read data from parquet files from HDFS into spark
+    spark_df = spark.read.parquet(hdfs_dir + "/*.parquet")
     print("\nCount from Spark DF (" + table + "): " + str(spark_df.count()) + "\n\n")
+
+    # Remove hdfs directory for parquet files
+    result = str(subprocess.check_output("hdfs dfs -rm -r -f -skipTrash " + hdfs_dir, shell=True).strip(), 'utf-8')
+    print(result + "\n\n")
 
     return spark_df
 
@@ -62,12 +76,21 @@ if __name__ == '__main__':
     # Establish DB connection
     db = "D:\\Softwares\\SQLite\\sample-database-sqlite-1\\Data.db"
     conn = pyodbc.connect("DRIVER={SQLite3 ODBC Driver};DATABASE=" + db)
-    
-    # Parquet file directory
-    dir = "C:\\Users\\Vicky\\Desktop\\test_data"
-    
+
+    # Random number for appending to directory name
+    rand = random.randint(100, 1000)
+
+    # Parquet local file directory
+    local_dir = "C:\\Users\\Vicky\\Desktop\\test_data_" + str(rand)
+
     # Parquet file name format
-    output = dir + "\\chunk_"
+    output = local_dir + "\\chunk_"
+
+    # Get HDFS namenode host and port
+    hdfs_namenode = str(subprocess.check_output("hdfs getconf -confKey fs.defaultFS", shell=True).strip(), 'utf-8')
+
+    # HDFS directory for parquet files
+    hdfs_dir = hdfs_namenode + "/test_data_" + str(rand)
 
     # Set max number of processes
     max_processes = 16
@@ -75,26 +98,28 @@ if __name__ == '__main__':
     # Initiate Spark
     spark = SparkSession.builder.appName("ODBC_Spark").getOrCreate()
     spark.sparkContext.setLogLevel("ERROR")
+    
+    print("\nHDFS namenode: " + hdfs_namenode + "\n")
 
     t0 = time.time()
     print("\nStart\n\n")
 
     for table in ["Products", "Sales"]:
-        # Remove directory containing parquet files if it exists (to avoid unwanted files due to errors in previous run)
-        shutil.rmtree(dir, ignore_errors=True)
+        # Remove local directory containing parquet files (to avoid unwanted files due to errors in previous run)
+        shutil.rmtree(local_dir, ignore_errors=True)
 
-        # Create directory for storing parquet files
-        Path(dir).mkdir(parents=True, exist_ok=True)
-        
+        # Create local directory for storing parquet files
+        Path(local_dir).mkdir(parents=True, exist_ok=True)
+
         # Count of rows
         df = pd.read_sql("SELECT count(*) FROM " + table, conn)
         count = df.iloc[0, 0]
         print("Count from DB (" + table + "): " + str(count) + "\n")
 
-        odbc_to_spark(output, conn, count, max_processes, table, spark)
+        odbc_to_spark(output, conn, count, max_processes, table, spark, hdfs_dir, local_dir, hdfs_namenode)
 
-        # Remove directory containing parquet files at the end
-        shutil.rmtree(dir, ignore_errors=True)
+        # Remove local directory containing parquet files at the end
+        shutil.rmtree(local_dir, ignore_errors=True)
 
     print("Complete\n")
     print("Time taken: " + str(time.time() - t0) + " seconds\n")
