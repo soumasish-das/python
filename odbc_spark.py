@@ -86,7 +86,7 @@ if __name__ == '__main__':
     hdfs_dir = hdfs_namenode + "/test_data_" + str(rand)
 
     # Set max number of processes
-    max_processes = 16
+    max_processes = 32
 
     # Initiate Spark
     spark = SparkSession.builder.appName("ODBC_Spark").getOrCreate()
