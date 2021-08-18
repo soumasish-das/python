@@ -1,7 +1,6 @@
 import findspark
 findspark.init()
 
-import pyodbc
 import pandas as pd
 import time
 import multiprocessing as mp
@@ -10,6 +9,7 @@ import random
 import subprocess
 
 from pathlib import Path
+from sqlalchemy import create_engine
 from pyspark.sql import SparkSession
 
 
@@ -65,9 +65,10 @@ def odbc_to_spark(output, conn, count, max_processes, table, spark, hdfs_dir, lo
 
 # Main function
 if __name__ == '__main__':
-    # Establish DB connection
+    # Establish DB connection using SQLAlchemy
     db = "D:\\Softwares\\SQLite\\sample-database-sqlite-1\\Data.db"
-    conn = pyodbc.connect("DRIVER={SQLite3 ODBC Driver};DATABASE=" + db)
+    engine = create_engine("sqlite:///D:\\Softwares\\SQLite\\sample-database-sqlite-1\\Data.db")
+    conn = engine.connect().execution_options(stream_results=True)
 
     # Random number for appending to directory name
     rand = random.randint(100, 1000)
