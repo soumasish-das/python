@@ -116,12 +116,12 @@ if __name__ == '__main__':
 
         # Remove hdfs directory for parquet files at the end
         result = str(subprocess.check_output("hdfs dfs -rm -r -f -skipTrash " + hdfs_dir, shell=True).strip(), 'utf-8')
-        print(result)
+        print(result + "\n")
         
         # Remove local directory containing parquet files at the end
         shutil.rmtree(local_dir, ignore_errors=True)
 
-    print("Complete\n")
+    print("\n\nComplete\n")
     print("Time taken: " + str(time.time() - t0) + " seconds\n")
 
     spark.stop()
