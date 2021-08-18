@@ -54,7 +54,7 @@ def odbc_to_spark(output, conn, count, max_processes, table, spark, hdfs_dir, lo
 
     # Copy parquet files from local to HDFS
     subprocess.run("hdfs dfs -copyFromLocal -f " + local_dir + " " + hdfs_namenode + "/", shell=True)
-    print("Parquet files copied to " + hdfs_dir + "\n")
+    print("\nParquet files copied to " + hdfs_dir + "\n")
 
     # Read data from parquet files from HDFS into spark
     spark_df = spark.read.parquet(hdfs_dir + "/*.parquet")
