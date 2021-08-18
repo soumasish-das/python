@@ -1,7 +1,7 @@
 High level overview of steps performed in odbc_to_spark program:
 ----------------------------------------------------------------
 
-1. Get HDFS parent dir using below command:
+1. Get HDFS parent dir (namenode) using below command:
    hdfs getconf -confKey fs.defaultFS
    OUTPUT: hdfs://ip-10-128-85-77.us.aegon.com:8020
 
