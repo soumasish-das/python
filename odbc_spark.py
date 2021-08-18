@@ -52,10 +52,6 @@ def odbc_to_spark(output, conn, count, max_processes, table, spark, hdfs_dir, lo
     pool.close()
     pool.join()
 
-    # Remove hdfs directory for parquet files
-    result = str(subprocess.check_output("hdfs dfs -rm -r -f -skipTrash " + hdfs_dir, shell=True).strip(), 'utf-8')
-    print(result)
-
     # Copy parquet files from local to HDFS
     subprocess.run("hdfs dfs -copyFromLocal -f " + local_dir + " " + hdfs_namenode + "/", shell=True)
     print("Parquet files copied to " + hdfs_dir + "\n")
@@ -63,10 +59,6 @@ def odbc_to_spark(output, conn, count, max_processes, table, spark, hdfs_dir, lo
     # Read data from parquet files from HDFS into spark
     spark_df = spark.read.parquet(hdfs_dir + "/*.parquet")
     print("\nCount from Spark DF (" + table + "): " + str(spark_df.count()) + "\n\n")
-
-    # Remove hdfs directory for parquet files
-    result = str(subprocess.check_output("hdfs dfs -rm -r -f -skipTrash " + hdfs_dir, shell=True).strip(), 'utf-8')
-    print(result + "\n\n")
 
     return spark_df
 
@@ -107,6 +99,10 @@ if __name__ == '__main__':
     for table in ["Products", "Sales"]:
         # Remove local directory containing parquet files (to avoid unwanted files due to errors in previous run)
         shutil.rmtree(local_dir, ignore_errors=True)
+        
+        # Remove hdfs directory for parquet files (to avoid unwanted files due to errors in previous run)
+        result = str(subprocess.check_output("hdfs dfs -rm -r -f -skipTrash " + hdfs_dir, shell=True).strip(), 'utf-8')
+        print(result)
 
         # Create local directory for storing parquet files
         Path(local_dir).mkdir(parents=True, exist_ok=True)
@@ -118,6 +114,10 @@ if __name__ == '__main__':
 
         odbc_to_spark(output, conn, count, max_processes, table, spark, hdfs_dir, local_dir, hdfs_namenode)
 
+        # Remove hdfs directory for parquet files at the end
+        result = str(subprocess.check_output("hdfs dfs -rm -r -f -skipTrash " + hdfs_dir, shell=True).strip(), 'utf-8')
+        print(result)
+        
         # Remove local directory containing parquet files at the end
         shutil.rmtree(local_dir, ignore_errors=True)
 
