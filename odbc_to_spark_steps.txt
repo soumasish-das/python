@@ -19,7 +19,7 @@ High level overview of steps performed in odbc_to_spark program:
    spark.read.parquet(hdfs_dir + "/*.parquet")
    Ex.: spark.read.parquet("hdfs://ip-10-128-85-77.us.aegon.com:8020/test_data_929/*.parquet")
    
-6. Remove test_data dir in HDFS at the end
+6. Remove test_data dir in HDFS at the end:
    hdfs dfs -rm -r -f -skipTrash <output_of_cmd_in_prev_step>/test_data_<random_number>
    Ex.: hdfs dfs -rm -r -f -skipTrash hdfs://ip-10-128-85-77.us.aegon.com:8020/test_data_929
    OUTPUT: Deleted hdfs://ip-10-128-85-77.us.aegon.com:8020/test_data_929
