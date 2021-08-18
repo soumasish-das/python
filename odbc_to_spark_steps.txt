@@ -1,0 +1,29 @@
+High level overview of steps performed in odbc_to_spark program:
+----------------------------------------------------------------
+
+1. Get HDFS parent dir using below command:
+   hdfs getconf -confKey fs.defaultFS
+   OUTPUT: hdfs://ip-10-128-85-77.us.aegon.com:8020
+
+2. Remove test_data dir in HDFS if it exists (to prevent unwanted files):
+   hdfs dfs -rm -r -f -skipTrash <output_of_cmd_in_prev_step>/test_data_<random_number>
+   Ex.: hdfs dfs -rm -r -f -skipTrash hdfs://ip-10-128-85-77.us.aegon.com:8020/test_data_929
+   
+3. Parquet files created in local as usual (using chunk_parquet() function in odbc_to_spark() function)
+
+4. Copy the local parquet folder to HDFS location:
+   hdfs dfs -copyFromLocal -f <local_path> <hdfs_path>
+   Ex.: hdfs dfs -copyFromLocal -f /home/hadoop/qa/test_data_929 hdfs://ip-10-128-85-77.us.aegon.com:8020/
+   
+5. Spark reads parquet data from the HDFS location:
+   spark.read.parquet(hdfs_dir + "/*.parquet")
+   Ex.: spark.read.parquet("hdfs://ip-10-128-85-77.us.aegon.com:8020/test_data_929/*.parquet")
+   
+6. Remove test_data dir in HDFS at the end
+   hdfs dfs -rm -r -f -skipTrash <output_of_cmd_in_prev_step>/test_data_<random_number>
+   Ex.: hdfs dfs -rm -r -f -skipTrash hdfs://ip-10-128-85-77.us.aegon.com:8020/test_data_929
+   OUTPUT: Deleted hdfs://ip-10-128-85-77.us.aegon.com:8020/test_data_929
+   
+7. Remove parquet data from local:
+   shutil.rmtree(local_dir, ignore_errors=True)
+   Ex.: shutil.rmtree("/home/hadoop/qa/test_data_929", ignore_errors=True)
