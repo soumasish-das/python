@@ -8,4 +8,4 @@ for key in dataframe:
         dataframe[key].to_csv("C:\\Users\\Vicky\\Minnie\\excel_to_csv.csv", index=False, mode='w')
         first = False
     else:
-        dataframe[key].to_csv("C:\\Users\\Vicky\\Minnie\\excel_to_csv.csv", index=False, mode='a')
+        dataframe[key].to_csv("C:\\Users\\Vicky\\Minnie\\excel_to_csv.csv", index=False, mode='a', header=False)
