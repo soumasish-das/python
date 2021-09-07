@@ -1,19 +1,10 @@
 # Count of words in paragraph
-import re
-
 paragraph = "They had always called it the green river. " \
             "It made sense. The river was green. The river likely had a " \
             "different official name, but to everyone in town, it was and " \
             "had always been the green river. So it was with great surprise " \
             "that on this day the green river was a fluorescent pink."
 
-# Use any one from below for the split operation
-
-# Get words from paragraph by splitting on non-alphanumeric characters
-# like space, comma, semicolon etc.
-words = re.split("[^0-9a-zA-Z]+", paragraph)
-
-# Below one is also acceptable (split by space only)
 words = paragraph.split()
 
 dict = {}
@@ -75,26 +66,5 @@ for i in range(1, num_of_files+1):
             if "Value:" in line:
                 print(filename + " -> " + line)
                 break
-    else:
-        print(filename + " is not available")
-
-
-
-
-# Search for file and read contents (Regular Expression)
-import re
-import os
-from datetime import datetime
-
-date = datetime.today().strftime('%Y%m%d')
-num_of_files =  5
-
-for i in range(1, num_of_files+1):
-    filename = "file_" + date + "_" + str(i) + ".txt"
-    if os.path.isfile(filename):
-        content = open(filename, 'r').read()
-        match = re.search("Value:.*", content)
-        if match:
-            print(filename + " -> " + match.group())
     else:
         print(filename + " is not available")
