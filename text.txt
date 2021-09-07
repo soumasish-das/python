@@ -1,0 +1,29 @@
+1. Given a paragraph as input, find the words and their number of occurences for all words that appear more than twice in the paragraph.
+   
+   Ex. paragraph = "They had always called it the green river. It made sense. The river was green. The river likely had a different official name, but to everyone in town, it was and had always been the green river. So it was with great surprise that on this day the green river was a fluorescent pink."
+   
+   Output:
+   had -> 3
+   it -> 3
+   the -> 3
+   green -> 3
+   river -> 3
+   was -> 4
+
+
+2. Given a sentence as input, extract all the numbers and apply the logic as below to get the result:
+   
+   Input paragraph:
+   "he1ro23 roll_number_1234 test456string 100"
+   
+   Extracted numbers:
+   1 23 1234 456 100
+   
+   Logic to be applied on the extracted numbers:
+   1*10 + 23 = 33
+   33*10 + 1234 = 1564
+   1564*10 + 456 = 16096
+   16096*10 + 100 = 161060
+   
+   Input: string containing numbers and text
+   Output: Result as per explained logic
