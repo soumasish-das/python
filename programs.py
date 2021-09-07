@@ -56,7 +56,7 @@ import os
 from datetime import datetime
 
 date = datetime.today().strftime('%Y%m%d')
-num_of_files =  5
+num_of_files =  100
 
 for i in range(1, num_of_files+1):
     filename = "file_" + date + "_" + str(i) + ".txt"
