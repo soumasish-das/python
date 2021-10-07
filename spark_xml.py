@@ -15,15 +15,16 @@ spark.sparkContext.setLogLevel("ERROR")
 
 sparkDF = spark.read \
         .format("com.databricks.spark.xml") \
-        .option("rootTag", "database") \
         .option("rowTag", "person") \
+        .option("excludeAttribute", "true") \
+        .option("treatEmptyValuesAsNulls", "true") \
         .load("C:\\Users\\Vicky\\Minnie\\XML data\\*.xml")
 
 sparkDF.printSchema()
 sparkDF.show(truncate=False)
 
 sparkDF.createOrReplaceTempView("PERSON")
-df = spark.sql("SELECT id, name, gender, dob, city, company, salary FROM PERSON")
+df = spark.sql("SELECT id, name, gender, dob, description, city, company, salary FROM PERSON")
 print("\nPERSON:")
 df.show(truncate=False)
 
