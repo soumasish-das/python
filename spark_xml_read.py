@@ -82,8 +82,8 @@ sparkDF = spark.read \
 sparkDF = flatten(sparkDF)
 sparkDF.show(truncate=False)
 
-print("test.xml:")
-path = createTempFile('C:\\Users\\Vicky\\Minnie\\XML data\\test.xml', 'C:\\Users\\Vicky\\Desktop\\')
+print("xml_data3.xml:")
+path = createTempFile('C:\\Users\\Vicky\\Minnie\\XML data\\xml_data3.xml', 'C:\\Users\\Vicky\\Desktop\\')
 sparkDF = spark.read \
     .format("com.databricks.spark.xml") \
     .option("rowTag", "business_key") \
