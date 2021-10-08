@@ -1,0 +1,58 @@
+<xml_start>
+	<business_key policy_id="123" account_id="123456">	
+		<database view_row_create_day="2021-09-15T00:00:00" view_row_obsolete_day="9999-12-31T00:00:00">
+			<person view_row_effective_day="1901-01-01T00:00:00" view_row_expiration_day="9999-12-31T00:00:00">
+				<id>1</id>
+				<name>Shruti Jayaswal</name>
+				<dob>30-09-1992</dob>
+				<gender>F</gender>
+				<salary>10000</salary>
+				<city>Nagpur</city>
+				<company>Deloitte</company>
+				<description xsi:nil="true"/>
+			</person>
+		</database>
+	</business_key>
+	<business_key policy_id="456" account_id="456789">	
+		<database view_row_create_day="2021-09-15T00:00:00" view_row_obsolete_day="9999-12-31T00:00:00">
+			<person view_row_effective_day="1901-01-01T00:00:00" view_row_expiration_day="9999-12-31T00:00:00">
+				<id>2</id>
+				<name>Soumasish Das</name>
+				<dob>06-04-1993</dob>
+				<gender>M</gender>
+				<salary>10000</salary>
+				<city>Bangalore</city>
+				<company>Morgan Stanley</company>
+				<description xsi:nil="true"/>
+			</person>
+		</database>
+	</business_key>
+	<business_key policy_id="123" account_id="123456">	
+		<database view_row_create_day="2021-09-15T00:00:00" view_row_obsolete_day="9999-12-31T00:00:00">
+			<person view_row_effective_day="1901-01-01T00:00:00" view_row_expiration_day="9999-12-31T00:00:00">
+				<id>3</id>
+				<name>Minnie</name>
+				<dob>30-09-1992</dob>
+				<gender>F</gender>
+				<salary>10000</salary>
+				<city>Nagpur</city>
+				<company>Deloitte</company>
+				<description xsi:nil="true"/>
+			</person>
+		</database>
+	</business_key>
+	<business_key policy_id="456" account_id="456789">	
+		<database view_row_create_day="2021-09-15T00:00:00" view_row_obsolete_day="9999-12-31T00:00:00">
+			<person view_row_effective_day="1901-01-01T00:00:00" view_row_expiration_day="9999-12-31T00:00:00">
+				<id>4</id>
+				<name>Vicky</name>
+				<dob>06-04-1993</dob>
+				<gender>M</gender>
+				<salary>10000</salary>
+				<city>Bangalore</city>
+				<company>Morgan Stanley</company>
+				<description xsi:nil="true"/>
+			</person>
+		</database>
+	</business_key>
+</xml_start>
