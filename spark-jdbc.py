@@ -3,12 +3,12 @@ findspark.init()
 
 from pyspark.sql import SparkSession
 
-# .master("spark://192.168.0.101:7077")
 spark = SparkSession.builder \
     .appName("Spark-JDBC") \
-    .config("spark.jars", "D:\\Softwares\\MySQL\\Connector J 8.0\\mysql-connector-java-8.0.25.jar,"
+    .config("spark.jars", "D:\\Softwares\\MySQL\\Connector J 8.0\\mysql-connector-java-8.0.26.jar,"
                           "D:\\Softwares\\Oracle\\ojdbc8.jar,"
-                          "D:\\Softwares\\Microsoft SQL Server\\sqljdbc_9.2\\enu\\mssql-jdbc-9.2.1.jre8.jar,"
+                          "D:\\Softwares\\Microsoft SQL Server\\sqljdbc_9.4\\enu\\mssql-jdbc-9.4.0.jre8.jar,"
+                          "D:\\Softwares\\PostgreSQL\\pgJDBC\\postgresql-42.2.18.jar,"
                           "D:\\Softwares\\SQLite\\sqlite-jdbc-3.36.0.1.jar") \
     .getOrCreate()
 spark.sparkContext.setLogLevel("ERROR")
@@ -51,6 +51,8 @@ print("\n")
 
 # Read data from SQL Server table
 # jdbc:sqlserver://localhost:1433;databaseName=AdventureWorks
+# For Windows domain credentials logon:
+# jdbc:sqlserver://localhost:1433;databaseName=AdventureWorks;integratedSecurity=true
 sqlServerDF = spark.read \
     .format("jdbc") \
     .option("url", "jdbc:sqlserver://VICKY-PC\\SQLEXPRESS;databaseName=AdventureWorks") \
@@ -68,6 +70,24 @@ print("Number of rows: {}".format(sqlServerDF.count()))
 
 print("\n")
 
+# Read data from PostgreSQL table
+pgDF = spark.read \
+    .format("jdbc") \
+    .option("url", "jdbc:postgresql://localhost:5432/dvdrental") \
+    .option("user", "test_pg") \
+    .option("password", "postgre_test") \
+    .option("query", "select * from public.address") \
+    .option("driver", "org.postgresql.Driver") \
+    .load()
+print("---------------------------------")
+print("PostgreSQL database sample table:")
+print("---------------------------------\n")
+print("ADDRESS:")
+pgDF.show(pgDF.count(), truncate=False)
+print("Number of rows: {}".format(pgDF.count()))
+
+print("\n")
+
 # Read data from SQLite table
 sqLiteDF = spark.read \
     .format("jdbc") \
@@ -75,9 +95,9 @@ sqLiteDF = spark.read \
     .option("query", "select * from Customer") \
     .option("driver", "org.sqlite.JDBC") \
     .load()
-print("---------------------------------")
+print("-----------------------------")
 print("SQLite database sample table:")
-print("---------------------------------\n")
+print("-----------------------------\n")
 print("CUSTOMER:")
 sqLiteDF.show(sqLiteDF.count(), truncate=False)
 print("Number of rows: {}".format(sqLiteDF.count()))
