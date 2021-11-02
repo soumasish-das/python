@@ -104,6 +104,7 @@ conf.setAppName("AWS_Spark")
 
 sc = SparkContext(conf=conf)
 sc.setSystemProperty("com.amazonaws.services.s3.enableV4", "true")
+sc.setLogLevel("ERROR")
 
 spark = SparkSession.builder.config(conf=conf).getOrCreate()
 # --------------------------------
