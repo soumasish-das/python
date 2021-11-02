@@ -8,17 +8,17 @@ import time
 client_athena = boto3.client('athena', region_name='us-east-1')
 client_s3 = boto3.client('s3', region_name='us-east-1')
 
-#Read config data
-try:
-    config_excel = client_s3.get_object(Bucket='ta-wpdata-data-validation-dev', Key='773_tables-landing-aws-2.xlsx')
-    config_df = pandas.read_excel(config_excel['Body'], sheet_name='Config')
-    df_queries_count = pandas.read_excel(config_excel['Body'], sheet_name='773TablesCount')
-    df_queries_datatypes = pandas.read_excel(config_excel['Body'], sheet_name='773TablesDatatypes')
-except Exception as e:
-    print("Failed to read data from excel sheet")
-    print(str(e))
-    print("Exiting program")
-    sys.exit(-1)
+# Read config data
+# try:
+#     config_excel = client_s3.get_object(Bucket='ta-wpdata-data-validation-dev', Key='773_tables-landing-aws-2.xlsx')
+#     config_df = pandas.read_excel(config_excel['Body'], sheet_name='Config')
+#     df_queries_count = pandas.read_excel(config_excel['Body'], sheet_name='773TablesCount')
+#     df_queries_datatypes = pandas.read_excel(config_excel['Body'], sheet_name='773TablesDatatypes')
+# except Exception as e:
+#     print("Failed to read data from excel sheet")
+#     print(str(e))
+#     print("Exiting program")
+#     sys.exit(-1)
 
 # Athena params
 params = {
