@@ -12,6 +12,8 @@ client_s3 = boto3.client('s3', region_name='us-east-1')
 try:
     config_excel = client_s3.get_object(Bucket='ta-wpdata-data-validation-dev', Key='773_tables-landing-aws-2.xlsx')
     config_df = pandas.read_excel(config_excel['Body'], sheet_name='Config')
+    df_queries_count = pandas.read_excel(config_excel['Body'], sheet_name='773TablesCount')
+    df_queries_datatypes = pandas.read_excel(config_excel['Body'], sheet_name='773TablesDatatypes')
 except Exception as e:
     print("Failed to read data from excel sheet")
     print(str(e))
