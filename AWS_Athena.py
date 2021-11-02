@@ -8,7 +8,7 @@ import time
 client_athena = boto3.client('athena', region_name='us-east-1')
 client_s3 = boto3.client('s3', region_name='us-east-1')
 
-# Read config data
+# Read config data from excel in S3
 # try:
 #     config_excel = client_s3.get_object(Bucket='ta-wpdata-data-validation-dev', Key='773_tables-landing-aws-2.xlsx')
 #     config_df = pandas.read_excel(config_excel['Body'], sheet_name='Config')
