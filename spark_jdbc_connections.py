@@ -21,7 +21,7 @@
 #
 # In this example, getMySqlDF() function is used to get a Spark dataframe containing
 # data queried from MySQL database.
-# Note that the dictionary contains all the parameters that are normally used as
+# Note that the dictionary contains all the parameters that are normally passed as
 # options to connect to the database using JDBC (and Spark in this case).
 #
 # These helper functions add the JDBC specifications for the respective database in
