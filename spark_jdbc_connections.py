@@ -34,14 +34,14 @@ def getOracleDF(spark_obj, connection_dict):
 # Get SQL Server data
 def getSqlServerDF(spark_obj, connection_dict):
     connection_dict['url'] = "jdbc:sqlserver://" + connection_dict['url']
-    oracleDF = spark_obj.read.format("jdbc").option("driver", "com.microsoft.sqlserver.jdbc.SQLServerDriver")
-    oracleDF = getData(oracleDF, connection_dict)
-    return oracleDF
+    sqlServerDF = spark_obj.read.format("jdbc").option("driver", "com.microsoft.sqlserver.jdbc.SQLServerDriver")
+    sqlServerDF = getData(sqlServerDF, connection_dict)
+    return sqlServerDF
 
 
 # Get MySQL data
 def getMySqlDF(spark_obj, connection_dict):
     connection_dict['url'] = "jdbc:mysql://" + connection_dict['url']
-    oracleDF = spark_obj.read.format("jdbc").option("driver", "com.mysql.cj.jdbc.Driver")
-    oracleDF = getData(oracleDF, connection_dict)
-    return oracleDF
+    mySqlDF = spark_obj.read.format("jdbc").option("driver", "com.mysql.cj.jdbc.Driver")
+    mySqlDF = getData(mySqlDF, connection_dict)
+    return mySqlDF
