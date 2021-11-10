@@ -61,3 +61,10 @@ def getSnowflakeDF(spark_obj, connection_dict):
     connection_dict['url'] = "jdbc:snowflake://" + connection_dict['url']
     snowflakeDF = spark_obj.read.format("jdbc").option("driver", "net.snowflake.client.jdbc.SnowflakeDriver")
     return getData(snowflakeDF, connection_dict)
+
+
+# Get Sybase data
+def getSybaseDF(spark_obj, connection_dict):
+    connection_dict['url'] = "jdbc:sybase:Tds:" + connection_dict['url']
+    sybaseDF = spark_obj.read.format("jdbc").option("driver", "com.sybase.jdbc42.jdbc.SybDriver")
+    return getData(sybaseDF, connection_dict)
