@@ -21,6 +21,7 @@
 #
 # In this example, getMySqlDF() function is used to get a Spark dataframe containing
 # data queried from MySQL database.
+# -------------------
 
 
 # Generic function to set connection options (like url, user, password etc.) and get data in Spark dataframe
