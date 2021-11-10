@@ -1,5 +1,28 @@
 # Spark JDBC connection definitions
 
+# -------------------
+# Usage instructions:
+# -------------------
+# Use the respective method to get data as a Spark dataframe from a particular database.
+#
+# Parameters:
+# -----------
+# spark_obj:       Spark variable that contains Spark initialization information
+# connection_dict: Dictionary of database connection options
+#
+# Example usage for MySQL database:
+# ---------------------------------
+# mysqldict = {"url": "localhost:3306/world",
+#              "user": "mysql_user",
+#              "password": "test",
+#              "query": "select * from country"}
+# mysqlDF = getMySqlDF(spark, mysqldict)
+# mysqlDF.show(mysqlDF.count(), truncate=False)
+#
+# In this example, getMySqlDF() function is used to get a Spark dataframe containing
+# data queried from MySQL database.
+
+
 # Generic function to set connection options (like url, user, password etc.) and get data in Spark dataframe
 def getData(spark_df, connection_dict):
     for key in connection_dict:
