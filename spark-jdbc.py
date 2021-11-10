@@ -2,26 +2,24 @@ import findspark
 findspark.init()
 
 from pyspark.sql import SparkSession
+from spark_jdbc_connections import *
 
 spark = SparkSession.builder \
     .appName("Spark-JDBC") \
-    .config("spark.jars", "D:\\Softwares\\MySQL\\Connector J 8.0\\mysql-connector-java-8.0.26.jar,"
+    .config("spark.jars", "D:\\Softwares\\MySQL\\Connector J 8.0\\mysql-connector-java-8.0.27.jar,"
                           "D:\\Softwares\\Oracle\\ojdbc8.jar,"
                           "D:\\Softwares\\Microsoft SQL Server\\sqljdbc_9.4\\enu\\mssql-jdbc-9.4.0.jre8.jar,"
-                          "D:\\Softwares\\PostgreSQL\\pgJDBC\\postgresql-42.2.18.jar,"
+                          "D:\\Softwares\\PostgreSQL\\pgJDBC\\postgresql-42.3.0.jar,"
                           "D:\\Softwares\\SQLite\\sqlite-jdbc-3.36.0.1.jar") \
     .getOrCreate()
 spark.sparkContext.setLogLevel("ERROR")
 
 # Read data from MySQL table
-mysqlDF = spark.read \
-    .format("jdbc") \
-    .option("url", "jdbc:mysql://localhost:3306/world") \
-    .option("user", "mysql_user") \
-    .option("password", "test") \
-    .option("query", "select * from country") \
-    .option("driver", "com.mysql.cj.jdbc.Driver") \
-    .load()
+mysqldict = {"url": "localhost:3306/world",
+             "user": "mysql_user",
+             "password": "test",
+             "query": "select * from country"}
+mysqlDF = getMySqlDF(spark, mysqldict)
 print("----------------------------")
 print("MySQL database sample table:")
 print("----------------------------\n")
@@ -32,14 +30,11 @@ print("Number of rows: {}".format(mysqlDF.count()))
 print("\n")
 
 # Read data from Oracle table
-oracleDF = spark.read \
-    .format("jdbc") \
-    .option("url", "jdbc:oracle:thin:@localhost:1521:orcl") \
-    .option("user", "hr") \
-    .option("password", "hr") \
-    .option("query", "select * from employees") \
-    .option("driver", "oracle.jdbc.driver.OracleDriver") \
-    .load()
+oracledict = {"url": "localhost:1521:orcl",
+              "user": "hr",
+              "password": "hr",
+              "query": "select * from employees"}
+oracleDF = getOracleDF(spark, oracledict)
 print("-----------------------------")
 print("Oracle database sample table:")
 print("-----------------------------\n")
@@ -53,14 +48,11 @@ print("\n")
 # jdbc:sqlserver://localhost:1433;databaseName=AdventureWorks
 # For Windows domain credentials logon:
 # jdbc:sqlserver://localhost:1433;databaseName=AdventureWorks;integratedSecurity=true
-sqlServerDF = spark.read \
-    .format("jdbc") \
-    .option("url", "jdbc:sqlserver://VICKY-PC\\SQLEXPRESS;databaseName=AdventureWorks") \
-    .option("user", "sql_server_user") \
-    .option("password", "test_ss") \
-    .option("query", "select * from Production.Product") \
-    .option("driver", "com.microsoft.sqlserver.jdbc.SQLServerDriver") \
-    .load()
+sqlserverdict = {"url": "VICKY-PC\\SQLEXPRESS;databaseName=AdventureWorks",
+                 "user": "sql_server_user",
+                 "password": "test_ss",
+                 "query": "select * from Production.Product"}
+sqlServerDF = getSqlServerDF(spark, sqlserverdict)
 print("---------------------------------")
 print("SQL Server database sample table:")
 print("---------------------------------\n")
@@ -71,14 +63,11 @@ print("Number of rows: {}".format(sqlServerDF.count()))
 print("\n")
 
 # Read data from PostgreSQL table
-pgDF = spark.read \
-    .format("jdbc") \
-    .option("url", "jdbc:postgresql://localhost:5432/dvdrental") \
-    .option("user", "test_pg") \
-    .option("password", "postgre_test") \
-    .option("query", "select * from public.address") \
-    .option("driver", "org.postgresql.Driver") \
-    .load()
+pgdict = {"url": "localhost:5432/dvdrental",
+          "user": "test_pg",
+          "password": "postgre_test",
+          "query": "select * from public.address"}
+pgDF = getPgGpDF(spark, pgdict)
 print("---------------------------------")
 print("PostgreSQL database sample table:")
 print("---------------------------------\n")
@@ -89,12 +78,9 @@ print("Number of rows: {}".format(pgDF.count()))
 print("\n")
 
 # Read data from SQLite table
-sqLiteDF = spark.read \
-    .format("jdbc") \
-    .option("url", "jdbc:sqlite:D:\\Softwares\\SQLite\\sample-database-sqlite-1\\Chinook.db") \
-    .option("query", "select * from Customer") \
-    .option("driver", "org.sqlite.JDBC") \
-    .load()
+sqlitedict = {"url": "D:\\Softwares\\SQLite\\sample-database-sqlite-1\\Chinook.db",
+              "query": "select * from Customer"}
+sqLiteDF = getSqLiteDF(spark, sqlitedict)
 print("-----------------------------")
 print("SQLite database sample table:")
 print("-----------------------------\n")
