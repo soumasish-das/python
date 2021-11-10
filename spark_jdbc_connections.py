@@ -1,6 +1,6 @@
 # Spark JDBC connection definitions
 
-# Generic function to set connection options (like url, user, password etc.) and get data
+# Generic function to set connection options (like url, user, password etc.) and get data in Spark dataframe
 def getData(spark_df, connection_dict):
     for key in connection_dict:
         spark_df = spark_df.option(key, connection_dict[key])
