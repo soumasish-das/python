@@ -24,6 +24,7 @@
 #              "query": "select * from country"}
 # mysqlDF = getMySqlDF(spark, mysqldict)
 # mysqlDF.show(mysqlDF.count(), truncate=False)
+# spark.stop()
 #
 # In this example, getMySqlDF() function is used to get a Spark dataframe containing
 # data queried from MySQL database.
