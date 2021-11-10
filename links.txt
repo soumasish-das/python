@@ -1,0 +1,4 @@
+https://stackoverflow.com/questions/56147135/using-mainframe-datasets-in-python-3-6-within-anaconda-spyder
+https://stackoverflow.com/questions/25701753/reading-a-mainframe-ebcdic-file
+https://pandas.pydata.org/docs/reference/api/pandas.read_fwf.html
+https://github.com/cschneid-the-elder/rants/blob/master/advice-reading-mainframe-data.md
