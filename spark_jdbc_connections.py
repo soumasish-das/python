@@ -40,3 +40,24 @@ def getMySqlDF(spark_obj, connection_dict):
     connection_dict['url'] = "jdbc:mysql://" + connection_dict['url']
     mySqlDF = spark_obj.read.format("jdbc").option("driver", "com.mysql.cj.jdbc.Driver")
     return getData(mySqlDF, connection_dict)
+
+
+# Get DB2 data
+def getDB2DF(spark_obj, connection_dict):
+    connection_dict['url'] = "jdbc:db2://" + connection_dict['url']
+    db2DF = spark_obj.read.format("jdbc").option("driver", "com.ibm.db2.jcc.DB2Driver")
+    return getData(db2DF, connection_dict)
+
+
+# Get Redshift data
+def getRedshiftDF(spark_obj, connection_dict):
+    connection_dict['url'] = "jdbc:redshift://" + connection_dict['url']
+    redshiftDF = spark_obj.read.format("jdbc").option("driver", "com.amazon.redshift.jdbc42.Driver")
+    return getData(redshiftDF, connection_dict)
+
+
+# Get Snowflake data
+def getSnowflakeDF(spark_obj, connection_dict):
+    connection_dict['url'] = "jdbc:snowflake://" + connection_dict['url']
+    snowflakeDF = spark_obj.read.format("jdbc").option("driver", "net.snowflake.client.jdbc.SnowflakeDriver")
+    return getData(snowflakeDF, connection_dict)
