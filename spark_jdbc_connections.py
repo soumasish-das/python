@@ -106,3 +106,11 @@ def getSybaseDF(spark_obj, connection_dict):
     connection_dict['url'] = "jdbc:sybase:Tds:" + connection_dict['url']
     sybaseDF = spark_obj.read.format("jdbc").option("driver", "com.sybase.jdbc42.jdbc.SybDriver")
     return getData(sybaseDF, connection_dict)
+
+
+# Get Teradata data
+def getTeradataDF(spark_obj, connection_dict):
+    connection_dict['url'] = "jdbc:teradata://" + connection_dict['url']
+    teradataDF = spark_obj.read.format("jdbc").option("driver", "com.teradata.jdbc.TeraDriver")
+    return getData(teradataDF, connection_dict)
+
