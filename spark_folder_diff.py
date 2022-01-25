@@ -47,7 +47,7 @@ print("Copied target folder to result directory successfully.\n")
 prima_list = source_content
 sec_list = target_content
 
-# If target_content >= source_content, swap prima_list and sec_list
+# If target_content > source_content, swap prima_list and sec_list
 if len(source_content) < len(target_content):
     prima_list = target_content
     sec_list = source_content
