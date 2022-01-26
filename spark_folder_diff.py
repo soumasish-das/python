@@ -43,11 +43,11 @@ target_content = target_content.split("\r\n")
 target_content = fileRename(target_content, tgt_result_folder)
 print("Copied target folder to result directory successfully.\n")
 
-# We are assuming that source_content >= target_content
+# We assume here that source_content list is bigger than target_content list
 prima_list = source_content
 sec_list = target_content
 
-# If target_content > source_content, swap prima_list and sec_list
+# If source_content list is smaller than target_content list, swap prima_list and sec_list
 if len(source_content) < len(target_content):
     prima_list = target_content
     sec_list = source_content
