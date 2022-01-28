@@ -34,9 +34,10 @@ for inputfile in inputfilelist:
     else:
         excel = pd.ExcelWriter(outputfile, engine='openpyxl', mode='a')
     sparkDF.toPandas().to_excel(excel, sheet_name=sheet_name, index=False, startrow=2)
-    wsheet = excel.book[sheet_name]
-    wsheet.cell(column=1, row=1, value=sheet_name + " file data:")
-    auto_format_cell_width(wsheet)
+    workbook = excel.book
+    worksheet = workbook[sheet_name]
+    worksheet.cell(column=1, row=1, value=sheet_name + " file data:")
+    auto_format_cell_width(worksheet)
     excel.save()
     print("Done: " + inputfile)
 
