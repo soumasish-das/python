@@ -26,7 +26,6 @@ spark.sparkContext.setLogLevel("ERROR")
 inputfilelist = ["C:\\Users\\Vicky\\Minnie\\homes.csv", "C:\\Users\\Vicky\\Minnie\\sample_data.csv"]
 outputfile = "C:\\Users\\Vicky\\Desktop\\output.xlsx"
 
-first_time_file_flag = True
 for inputfile in inputfilelist:
     sparkDF = spark.read.options(header='true', inferSchema='true').csv(inputfile)
     sheet_name = os.path.splitext(os.path.basename(inputfile))[0]
