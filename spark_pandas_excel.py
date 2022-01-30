@@ -7,7 +7,7 @@ import pandas as pd
 import os
 
 
-# https://stackoverflow.com/questions/66531396/export-pandas-dataframe-to-xlsx-dealing-with-the-openpyxl-issue-on-python-3-9
+# https://stackoverflow.com/a/66599619
 def auto_format_cell_width(ws):
     for letter in range(1, ws.max_column):
         maximum_value = 0
