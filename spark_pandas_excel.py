@@ -30,7 +30,7 @@ for inputfile in inputfilelist:
     sparkDF = spark.read.options(header='true', inferSchema='true').csv(inputfile)
     sheet_name = os.path.splitext(os.path.basename(inputfile))[0]
     if first_time_file_flag:
-        excel = pd.ExcelWriter(outputfile, engine='openpyxl', mode='w')
+        excel = ExcelWriter(outputfile, engine='openpyxl', mode='w')
         first_time_file_flag = False
     else:
         excel = ExcelWriter(outputfile, engine='openpyxl', mode='a')
