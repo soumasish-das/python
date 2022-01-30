@@ -17,6 +17,7 @@ def auto_format_cell_width(ws):
                 maximum_value = val_to_check
         ws.column_dimensions[get_column_letter(letter)].width = maximum_value + 2
 
+
 spark = SparkSession.builder.appName("Spark_Pandas_Excel") \
     .getOrCreate()
 spark.sparkContext.setLogLevel("ERROR")
