@@ -7,7 +7,7 @@ import openpyxl
 import os
 
 
-# https://stackoverflow.com/questions/66531396/export-pandas-dataframe-to-xlsx-dealing-with-the-openpyxl-issue-on-python-3-9
+# https://stackoverflow.com/a/66599619
 def auto_format_cell_width(ws):
     for letter in range(1, ws.max_column):
         maximum_value = 0
@@ -16,6 +16,7 @@ def auto_format_cell_width(ws):
             if val_to_check > maximum_value:
                 maximum_value = val_to_check
         ws.column_dimensions[get_column_letter(letter)].width = maximum_value + 2
+
 
 spark = SparkSession.builder.appName("Spark_Excel_Write") \
     .config("spark.jars.packages", "com.crealytics:spark-excel_2.12:0.13.7") \
