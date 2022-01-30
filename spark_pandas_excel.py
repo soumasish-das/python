@@ -3,7 +3,7 @@ findspark.init()
 
 from pyspark.sql import SparkSession
 from openpyxl.utils import get_column_letter
-import pandas as pd
+from pandas import ExcelWriter
 import os
 
 
@@ -33,7 +33,7 @@ for inputfile in inputfilelist:
         excel = pd.ExcelWriter(outputfile, engine='openpyxl', mode='w')
         first_time_file_flag = False
     else:
-        excel = pd.ExcelWriter(outputfile, engine='openpyxl', mode='a')
+        excel = ExcelWriter(outputfile, engine='openpyxl', mode='a')
     sparkDF.toPandas().to_excel(excel, sheet_name=sheet_name, index=False, startrow=2)
     workbook = excel.book
     worksheet = workbook[sheet_name]
