@@ -9,13 +9,13 @@
 # spark-excel version and dependencies:
 # --------------------------------------
 # Maven Repository:
-# https://mvnrepository.com/artifact/com.crealytics/spark-excel_2.12/0.13.7
+# https://mvnrepository.com/artifact/com.crealytics/spark-excel_2.12/3.2.0_0.16.0
 
 # spark-excel information from the Maven repository page:
 # --------------------------------------------------------
 # groupId: com.crealytics
 # artifactId: spark-excel_2.12
-# version: 0.13.7
+# version: 3.2.0_0.16.0
 
 # Format: spark.jars.packages  groupId:artifactId:version
 
@@ -23,7 +23,7 @@
 # INSTALLATION INSTRUCTIONS:
 # ---------------------------
 # 1. Open "spark-defaults.conf" in "%SPARK_HOME%\conf" folder
-# 2. Add "spark.jars.packages  com.crealytics:spark-excel_2.12:0.13.7"
+# 2. Add "spark.jars.packages  com.crealytics:spark-excel_2.12:3.2.0_0.16.0"
 
 # --------------------------------------------------------
 # Reference for read/write excel from/to spark dataframe:
