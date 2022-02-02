@@ -32,7 +32,7 @@ for inputfile in inputfilelist:
 
     # Write sparkDF to output excel
     sparkDF.write.format("com.crealytics.spark.excel") \
-        .options(header='true', dataAddress="'" + sheet_name + "'!A3") \
+        .options(header='true', dataAddress="'" + sheet_name + "'!A3", usePlainNumberFormat='true') \
         .mode("append") \
         .save(outputfile)
 
