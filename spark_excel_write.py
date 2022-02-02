@@ -19,7 +19,7 @@ def auto_format_cell_width(ws):
 
 
 spark = SparkSession.builder.appName("Spark_Excel_Write") \
-    .config("spark.jars.packages", "com.crealytics:spark-excel_2.12:0.13.7") \
+    .config("spark.jars.packages", "com.crealytics:spark-excel_2.12:3.2.0_0.16.0") \
     .getOrCreate()
 spark.sparkContext.setLogLevel("ERROR")
 
