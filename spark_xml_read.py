@@ -52,7 +52,7 @@ def createTempFile(filepath, output_dir):
 
 spark = SparkSession.builder \
     .appName("Spark-XML") \
-    .config("spark.jars.packages", "com.databricks:spark-xml_2.12:0.12.0") \
+    .config("spark.jars.packages", "com.databricks:spark-xml_2.12:0.14.0") \
     .getOrCreate()
 spark.sparkContext.setLogLevel("ERROR")
 
