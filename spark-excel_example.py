@@ -32,7 +32,6 @@
 
 
 import findspark
-
 findspark.init()
 
 from pyspark.sql import SparkSession
@@ -51,7 +50,7 @@ spark.sparkContext.setLogLevel("ERROR")
 
 # Read from excel file
 sparkDF = spark.read.format("com.crealytics.spark.excel") \
-    .options(header='true', inferSchema='true', dataAddress="'Data'!A1") \
+    .options(header='true', inferSchema='true', dataAddress="'Data'!A1", usePlainNumberFormat='true') \
     .load("C:\\Users\\Vicky\\Minnie\\SampleXLSFile.xls")
 
 print("Data read from excel file successfully.\n")
@@ -66,7 +65,7 @@ print("excelWriteDF row count: " + str(excelWriteDF.count()))
 
 # Write into excel file
 excelWriteDF.write.format("com.crealytics.spark.excel") \
-    .options(header='true', dataAddress="'Result'!A1") \
+    .options(header='true', dataAddress="'Result'!A1", usePlainNumberFormat='true') \
     .mode("overwrite") \
     .save("C:\\Users\\Vicky\\Minnie\\spark-excel-write-test.xlsx")
 
