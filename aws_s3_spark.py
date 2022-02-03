@@ -79,17 +79,17 @@ conf.set("spark.hadoop.fs.s3a.aws.credentials.provider", "com.amazonaws.auth.pro
 # ---------------------------------------------------------------------
 # For standard credentials (access key + secret key), use the following
 # ---------------------------------------------------------------------
-# conf.set("spark.hadoop.fs.s3a.access.key", "AKIAZCEXFQX2OC6IG272")
-# conf.set("spark.hadoop.fs.s3a.secret.key", "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")
+# conf.set("spark.hadoop.fs.s3a.access.key", "<access_key>")
+# conf.set("spark.hadoop.fs.s3a.secret.key", "<secret_key>")
 # conf.set("spark.hadoop.fs.s3a.aws.credentials.provider", "org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider")
 # ---------------------------------------------------------------------
 
 # --------------------------------------------
 # For temporary credentials, use the following
 # --------------------------------------------
-# conf.set("spark.hadoop.fs.s3a.access.key", "ASIAZCEXFQX2D37RH4DK")
-# conf.set("spark.hadoop.fs.s3a.secret.key", "rnG30hjoVf0jjYQrdncxYX988nqj2n82yhV+dEFq")
-# conf.set("spark.hadoop.fs.s3a.session.token", "IQoJb3JpZ2luX2VjEEwaCmFwLXNvdXRoLTEiRzBFAiByw1nAZyF0uWT+QaQtXTas11HEamtwIsbKOUt6xo+7bgIhAKGXp3Slj8MJv6ryGADTvJ0xNwk5QGVzwcvgQGdaAITJKvMBCPX//////////wEQABoMNjIzMDg3Mjg5ODQ0Igz53VH+m9kz9SvH4z8qxwFLnQG9chPQ93lO7VIFs4kqC96SRNK7ofUELkewHCKXnkqSe/Cv6sR5A7nHP55od6syrfqlZFajMk3vIqHO53koHm9ergj/0nufx/jSYo7HoKzElEsMz3ke6vzfgibpc/qfwlrlnMgBTdzFkB0YIHFiOVOqrPKQrllPlwXx51UKLHQnfmLHkroehylxkLqhijt2fzbSsvHhImy47AI67ZL+IzqxSWU9w7MfvLTztoZ8A4764+9rJXrE+0K+RCye69+wP0wx+Sq+MLXt5IUGOpgB+UnClnJUb9+YsR7zd0+jjE32ciDcBFqwkVewRp6svrS7mjVY84PDoglk9C+qyI8LOnGd0X7l9rFndUze3F+/ZcPRvkkTMfu1HRqn6+2A0450cmv+Udp2WIYePuu777qEr67KukY4J5zsP6MU4nicL9odICccHxnBJhz0OvpcTTxTa+f87TMKIrrag3eWnwrZf4gYvs1dFrk=")
+# conf.set("spark.hadoop.fs.s3a.access.key", "<access_key>")
+# conf.set("spark.hadoop.fs.s3a.secret.key", "<secret_key>")
+# conf.set("spark.hadoop.fs.s3a.session.token", "<session_token>")
 # conf.set("spark.hadoop.fs.s3a.aws.credentials.provider", "org.apache.hadoop.fs.s3a.TemporaryAWSCredentialsProvider")
 # --------------------------------------------
 
@@ -122,8 +122,8 @@ spark = SparkSession.builder.config(conf=conf).getOrCreate()
 # # Set configurations using spark context
 # sc.setSystemProperty("com.amazonaws.services.s3.enableV4", "true")
 # sc._jsc.hadoopConfiguration().set("fs.s3a.impl", "org.apache.hadoop.fs.s3a.S3AFileSystem")
-# sc._jsc.hadoopConfiguration().set("fs.s3a.access.key", "AKIAZCEXFQX2OC6IG272")
-# sc._jsc.hadoopConfiguration().set("fs.s3a.secret.key", "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")
+# sc._jsc.hadoopConfiguration().set("fs.s3a.access.key", "<access_key>")
+# sc._jsc.hadoopConfiguration().set("fs.s3a.secret.key", "<secret_key>")
 # sc._jsc.hadoopConfiguration() \
 #     .set("fs.s3a.aws.credentials.provider", "org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider")
 # sc._jsc.hadoopConfiguration().set("fs.s3a.endpoint", "s3.ap-south-1.amazonaws.com")
