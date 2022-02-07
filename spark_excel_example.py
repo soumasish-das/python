@@ -37,7 +37,7 @@ findspark.init()
 from pyspark.sql import SparkSession
 
 spark = SparkSession.builder.appName("ReadExcel") \
-    .config("spark.jars.packages", "com.crealytics:spark-excel_2.12:0.13.7") \
+    .config("spark.jars.packages", "com.crealytics:spark-excel_2.12:3.2.0_0.16.0") \
     .getOrCreate()
 spark.sparkContext.setLogLevel("ERROR")
 
