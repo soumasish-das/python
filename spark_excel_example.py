@@ -9,13 +9,13 @@
 # spark-excel version and dependencies:
 # --------------------------------------
 # Maven Repository:
-# https://mvnrepository.com/artifact/com.crealytics/spark-excel_2.12/3.2.0_0.16.0
+# https://mvnrepository.com/artifact/com.crealytics/spark-excel_2.13/3.2.1_0.16.4
 
 # spark-excel information from the Maven repository page:
 # --------------------------------------------------------
 # groupId: com.crealytics
-# artifactId: spark-excel_2.12
-# version: 3.2.0_0.16.0
+# artifactId: spark-excel_2.13
+# version: 3.2.1_0.16.4
 
 # Format: spark.jars.packages  groupId:artifactId:version
 
@@ -23,7 +23,7 @@
 # INSTALLATION INSTRUCTIONS:
 # ---------------------------
 # 1. Open "spark-defaults.conf" in "%SPARK_HOME%\conf" folder
-# 2. Add "spark.jars.packages  com.crealytics:spark-excel_2.12:3.2.0_0.16.0"
+# 2. Add "spark.jars.packages  com.crealytics:spark-excel_2.13:3.2.1_0.16.4"
 
 # --------------------------------------------------------
 # Reference for read/write excel from/to spark dataframe:
@@ -37,7 +37,7 @@ findspark.init()
 from pyspark.sql import SparkSession
 
 spark = SparkSession.builder.appName("ReadExcel") \
-    .config("spark.jars.packages", "com.crealytics:spark-excel_2.12:3.2.0_0.16.0") \
+    .config("spark.jars.packages", "com.crealytics:spark-excel_2.13:3.2.1_0.16.4") \
     .getOrCreate()
 spark.sparkContext.setLogLevel("ERROR")
 
