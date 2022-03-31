@@ -39,8 +39,7 @@ for i in range(len(data)):
 html += '</table>\n'
 
 # End of mail body and HTML
-html += '<p>\n'
-html += 'Best regards,<br>Shruti Jayaswal\n</p>\n'
+html += '<p>\nBest regards,<br>Shruti Jayaswal\n</p>\n'
 html += '</body>\n</html>'
 
 # Write HTML contents to file
