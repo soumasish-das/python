@@ -19,7 +19,7 @@ html += 'p {font-family: Calibri,sans-serif}\n'
 html += '</style>\n</head>\n'
 
 # Begin HTML and email body
-html += '<body>\n'
+html += '<body style="font-size: 11pt">\n'
 html += '<p>\n'
 html += 'Hi,<br><br>\n'
 html += 'Please see the EOD task status of each resource below:<br>\n</p>\n'
