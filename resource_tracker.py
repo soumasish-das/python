@@ -1,5 +1,7 @@
 import pandas as pd
-import os
+# import os
+
+import sendmail
 
 # resource_tracker = "C:\\Users\\Vicky\\Minnie\\Resource_tracker.xlsx"
 resource_tracker = input("Enter the path of the resource tracker excel file: ")
@@ -47,4 +49,12 @@ with open("Mail.html", "w") as file:
     file.write(html)
 
 # Open the HTML file in the default browser
-os.startfile("Mail.html")
+# os.startfile("Mail.html")
+
+sendmail.email(to_list='soumasishdas@gmail.com,jayaswal.shruti@gmail.com',
+               sender='soumasishdas@gmail.com',
+               subject='Resource Tracker Test automated email',
+               cc_list='soumasishdas@gmail.com,jayaswal.shruti@gmail.com',
+               mail_html_file='Mail.html',
+               attachment=resource_tracker
+               )
