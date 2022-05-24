@@ -23,8 +23,8 @@ def email(to_list, sender, subject, cc_list='', msg_body=None, mail_html_file=No
 
     # Set up the MIME. To and Cc are expected to be comma-separated email addresses
     message = MIMEMultipart('alternative')
-    message['From'] = to_list
-    message['To'] = sender
+    message['From'] = sender
+    message['To'] = to_list
     message['Cc'] = cc_list
     message['Subject'] = subject
 
