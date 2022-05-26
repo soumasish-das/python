@@ -1,0 +1,6 @@
+C:\Users\Vicky>
+python C:\Users\Vicky\PycharmProjects\General\resource_tracker.py -l "C:\\Users\\Vicky\\Minnie\\Resource_tracker.xlsx" -o "C:\\Users\\Vicky\\Desktop\\" -te "soumasishdas@gmail.com,jayaswal.shruti@gmail.com" -sn "Shruti Jayaswal" -tn "Minnie/Soumasish" -se "soumasishdas@gmail.com" -ce "soumasishdas@gmail.com,jayaswal.shruti@gmail.com" -s "Resource Tracker automated email" -a "C:\\Users\\Vicky\\Minnie\\Resource_tracker.xlsx"
+
+For help:
+---------
+python C:\Users\Vicky\PycharmProjects\General\resource_tracker.py --help
