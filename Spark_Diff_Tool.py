@@ -1,4 +1,4 @@
-# Spark diff tool
+# Spark Diff Tool
 
 import findspark
 findspark.init()
