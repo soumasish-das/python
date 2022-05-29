@@ -53,6 +53,9 @@ parser.add_argument("-D", "--ignore-duplicates",
 parser.add_argument("-x", "--exclude-columns",
                     help="Comma separated list of columns to be excluded "
                          "from source and target datasets for comparison")
+parser.add_argument("-M", "--spark-master",
+                    help="Spark master address to run in cluster mode. If this is not specified, "
+                         "then Spark runs in standalone mode")
 
 args = parser.parse_args()
 # -----------------------------
@@ -71,7 +74,10 @@ logging.basicConfig(filename=LOG_FILE_FULL_PATH,
                     level=logging.INFO)
 
 try:
-    spark = SparkSession.builder.appName("Spark_Diff_Tool").getOrCreate()
+    if args.spark_master:
+        spark = SparkSession.builder.master(args.spark_master).appName("Spark_Diff_Tool").getOrCreate()
+    else:
+        spark = SparkSession.builder.appName("Spark_Diff_Tool").getOrCreate()
     spark.sparkContext.setLogLevel("ERROR")
     logging.info("Started Spark process")
 except Exception:
