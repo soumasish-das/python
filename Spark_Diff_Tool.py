@@ -301,3 +301,5 @@ logging.info("Dropped SOURCE and TARGET temporary views")
 
 spark.stop()
 logging.info("Stopped Spark process")
+
+print("\nProgram completed successfully.")
