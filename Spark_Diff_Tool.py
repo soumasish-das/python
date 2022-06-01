@@ -172,14 +172,14 @@ try:
     spark.sql(cast_sql_source).createOrReplaceTempView("SOURCE")
     logging.info("Cast SQL executed successfully for SOURCE")
 except Exception:
-    logging.error("Failed to cast boolean columns to string for SOURCE. Stack trace: " + exc_info=True)
+    logging.error("Failed to cast boolean columns to string for SOURCE. Stack trace: ", exc_info=True)
 
 try:
     logging.info("Executing cast SQL for TARGET...")
     spark.sql(cast_sql_source).createOrReplaceTempView("TARGET")
     logging.info("Cast SQL executed successfully for TARGET")
 except Exception:
-    logging.error("Failed to cast boolean columns to string for TARGET. Stack trace: " + exc_info=True)
+    logging.error("Failed to cast boolean columns to string for TARGET. Stack trace: ", exc_info=True)
 # ------------------------------
 
 # ----------------------------------
