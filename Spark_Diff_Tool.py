@@ -64,7 +64,7 @@ args = parser.parse_args()
 args.output_dir = args.output_dir.replace('\\\\', '\\')
 
 LOG_FILE_FULL_PATH = os.path.join(args.output_dir, 'diff.log')
-CONSOLE_ERROR_MESSAGE = "ERROR: Process failed. Please check {} for details.\n".format(LOG_FILE_FULL_PATH)
+CONSOLE_ERROR_MESSAGE = "\nERROR: Process failed. Please check {} for details.".format(LOG_FILE_FULL_PATH)
 PROGRAM_EXIT_MESSAGE = "Stopping Spark and exiting program..."
 
 logging.basicConfig(filename=LOG_FILE_FULL_PATH,
