@@ -75,9 +75,13 @@ logging.basicConfig(filename=LOG_FILE_FULL_PATH,
 
 try:
     if args.spark_master:
-        spark = SparkSession.builder.master(args.spark_master).appName("Spark_Diff_Tool").getOrCreate()
+        spark = SparkSession.builder.master(args.spark_master).appName("Spark_Diff_Tool") \
+            .config("spark.serializer", "org.apache.spark.serializer.KryoSerializer") \
+            .getOrCreate()
     else:
-        spark = SparkSession.builder.appName("Spark_Diff_Tool").getOrCreate()
+        spark = SparkSession.builder.appName("Spark_Diff_Tool") \
+            .config("spark.serializer", "org.apache.spark.serializer.KryoSerializer") \
+            .getOrCreate()
     spark.sparkContext.setLogLevel("ERROR")
     logging.info("Started Spark process")
 except Exception:
