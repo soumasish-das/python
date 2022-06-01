@@ -133,16 +133,16 @@ except Exception:
     sys.exit(1)
 # -------------------------------------------------
 
+# -----------------------------
+# Exclude columns from datasets
+# -----------------------------
 if args.exclude_columns:
-    # -----------------------------
-    # Exclude columns from datasets
-    # -----------------------------
     exclude_col_list = [x.upper() for x in args.exclude_columns.split(",")]
     df_source = df_source.drop(*exclude_col_list)
     df_target = df_target.drop(*exclude_col_list)
 
     col_list_uppercase = [x.upper() for x in df_source.columns]
-    # -----------------------------
+# -----------------------------
 
 df_source.createOrReplaceTempView("RAW_SOURCE")
 df_target.createOrReplaceTempView("RAW_TARGET")
@@ -180,6 +180,9 @@ try:
     logging.info("Cast SQL executed successfully for TARGET")
 except Exception:
     logging.error("Failed to cast boolean columns to string for TARGET. Stack trace: ", exc_info=True)
+
+spark.catalog.dropTempView("RAW_SOURCE")
+spark.catalog.dropTempView("RAW_TARGET")
 # ------------------------------
 
 # ----------------------------------
@@ -295,8 +298,6 @@ except Exception:
 
 spark.catalog.dropTempView("SOURCE")
 spark.catalog.dropTempView("TARGET")
-spark.catalog.dropTempView("RAW_SOURCE")
-spark.catalog.dropTempView("RAW_TARGET")
 logging.info("Dropped SOURCE and TARGET temporary views")
 
 spark.stop()
