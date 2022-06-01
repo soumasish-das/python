@@ -144,8 +144,43 @@ if args.exclude_columns:
     col_list_uppercase = [x.upper() for x in df_source.columns]
     # -----------------------------
 
-df_source.createOrReplaceTempView("SOURCE")
-df_target.createOrReplaceTempView("TARGET")
+df_source.createOrReplaceTempView("RAW_SOURCE")
+df_target.createOrReplaceTempView("RAW_TARGET")
+
+# ------------------------------
+# Cast boolean columns as string
+# ------------------------------
+cast_sql_source = cast_sql_target = "SELECT "
+for col in col_list_uppercase:
+    if dict(df_source.dtypes)[col] == "boolean":
+        cast_sql_source += "CAST({} AS STRING) {}, ".format(col, col)
+        cast_sql_target += "CAST({} AS STRING) {}, ".format(col, col)
+    else:
+        cast_sql_source += "{}, ".format(col)
+        cast_sql_target += "{}, ".format(col)
+
+cast_sql_source = cast_sql_source[:-2] + " FROM RAW_SOURCE"
+cast_sql_target = cast_sql_target[:-2] + " FROM RAW_TARGET"
+
+logging.info("SQL to cast SOURCE boolean columns to string:")
+logging.info(cast_sql_source)
+logging.info("SQL to cast TARGET boolean columns to string:")
+logging.info(cast_sql_target)
+
+try:
+    logging.info("Executing cast SQL for SOURCE...")
+    spark.sql(cast_sql_source).createOrReplaceTempView("SOURCE")
+    logging.info("Cast SQL executed successfully for SOURCE")
+except Exception:
+    logging.error("Failed to cast boolean columns to string for SOURCE. Stack trace: " + exc_info=True)
+
+try:
+    logging.info("Executing cast SQL for TARGET...")
+    spark.sql(cast_sql_source).createOrReplaceTempView("TARGET")
+    logging.info("Cast SQL executed successfully for TARGET")
+except Exception:
+    logging.error("Failed to cast boolean columns to string for TARGET. Stack trace: " + exc_info=True)
+# ------------------------------
 
 # ----------------------------------
 # Set up the diff SQL pre-requisites
@@ -260,6 +295,8 @@ except Exception:
 
 spark.catalog.dropTempView("SOURCE")
 spark.catalog.dropTempView("TARGET")
+spark.catalog.dropTempView("RAW_SOURCE")
+spark.catalog.dropTempView("RAW_TARGET")
 logging.info("Dropped SOURCE and TARGET temporary views")
 
 spark.stop()
