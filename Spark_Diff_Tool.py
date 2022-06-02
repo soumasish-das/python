@@ -85,7 +85,7 @@ try:
     spark.sparkContext.setLogLevel("ERROR")
     logging.info("Started Spark process")
 except Exception:
-    logging.critical("ERROR: Failed to start Spark. Stack trace:", exc_info=True)
+    logging.critical("ERROR: Failed to start Spark. Stack trace: ", exc_info=True)
     logging.critical("Exiting program...")
     print(CONSOLE_ERROR_MESSAGE)
     sys.exit(1)
@@ -98,7 +98,7 @@ try:
     df_source = spark.read.options(header='true', inferSchema='true', sep=args.delimiter) \
         .csv(args.source)
 except Exception:
-    logging.critical("ERROR: Could not read SOURCE file. Stack trace:", exc_info=True)
+    logging.critical("ERROR: Could not read SOURCE file. Stack trace: ", exc_info=True)
     logging.critical(PROGRAM_EXIT_MESSAGE)
     spark.stop()
     print(CONSOLE_ERROR_MESSAGE)
@@ -111,7 +111,7 @@ try:
     df_target = spark.read.options(header='true', inferSchema='true', sep=args.delimiter) \
         .csv(args.target)
 except Exception:
-    logging.critical("ERROR: Could not read TARGET file. Stack trace:", exc_info=True)
+    logging.critical("ERROR: Could not read TARGET file. Stack trace: ", exc_info=True)
     logging.critical(PROGRAM_EXIT_MESSAGE)
     spark.stop()
     print(CONSOLE_ERROR_MESSAGE)
@@ -130,7 +130,7 @@ df_source = df_source.toDF(*col_list_uppercase)
 try:
     df_target = df_target.toDF(*col_list_uppercase)
 except Exception:
-    logging.critical("ERROR: Issue in TARGET dataset. Stack trace:", exc_info=True)
+    logging.critical("ERROR: Issue in TARGET dataset. Stack trace: ", exc_info=True)
     logging.critical(PROGRAM_EXIT_MESSAGE)
     spark.stop()
     print(CONSOLE_ERROR_MESSAGE)
@@ -294,7 +294,7 @@ try:
     logging.info("Diff completed and result file generated in {} seconds".format(time.time() - t0))
     logging.info("Full diff process completed in {} seconds".format(time.time() - t_start))
 except Exception:
-    logging.critical("ERROR: Diff process failed. Stack trace:", exc_info=True)
+    logging.critical("ERROR: Diff process failed. Stack trace: ", exc_info=True)
     logging.critical(PROGRAM_EXIT_MESSAGE)
     spark.stop()
     print(CONSOLE_ERROR_MESSAGE)
