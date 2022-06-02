@@ -1,5 +1,7 @@
 import argparse
 import pandas as pd
+import shutil
+import os
 import sendmail
 
 parser = argparse.ArgumentParser(description='Resource Tracker Automated Email: '
@@ -21,7 +23,9 @@ parser.add_argument("-a", "--attachment", help="File attachment to be added to t
 
 args = parser.parse_args()
 
+# Read the Excel file contents and get the tab name
 data = pd.read_excel(args.excel_location)
+tab_name = pd.ExcelFile(args.excel_location).sheet_names[0]
 
 # Replace all NaN with '-'
 data = data.fillna('-')
@@ -66,6 +70,7 @@ mail_file = args.output_dir + "\\Mail.html"
 with open(mail_file, "w") as file:
     file.write(html)
 
+# Send email
 sendmail.email(to_list=args.to_list_addresses,
                sender=args.sender_address,
                subject=args.subject,
@@ -73,3 +78,32 @@ sendmail.email(to_list=args.to_list_addresses,
                mail_html_file=mail_file,
                attachment=args.attachment
                )
+
+# Create a backup copy of the Excel file before clearing contents from its columns
+shutil.copyfile(args.excel_location, os.path.join(args.output_dir, 'Backup_' + os.path.basename(args.excel_location)))
+
+# Replace all column values except for the first column with blank
+data_cols = list(data.columns)
+data[data_cols[1:]] = ''
+
+# Replace the original Excel file
+writer = pd.ExcelWriter(args.excel_location, engine='xlsxwriter')
+workbook = writer.book
+worksheet = workbook.add_worksheet(tab_name)
+writer.sheets[tab_name] = worksheet
+
+header_cell_format = workbook.add_format({'bold': True, 'font_color': 'black', 'align': 'center',
+                                          'valign': 'vcenter', 'border': 1, 'border_color': 'black',
+                                          'bg_color': '#8DB5E2'})
+data_cell_format = workbook.add_format({'border': 1, 'font_color': 'black', 'border_color': 'black',
+                                        'bg_color': 'white'})
+
+for i in range(len(data_cols)):
+    worksheet.write(0, i, data_cols[i], header_cell_format)
+
+for i in range(len(data)):
+    for j in range(len(columns)):
+        worksheet.write(i+1, j, data.iloc[i, j], data_cell_format)
+writer.save()
+
+print("\nProgram completed successfully.")
