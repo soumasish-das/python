@@ -59,3 +59,4 @@ def email(to_list, sender, subject, cc_list='', msg_body=None, mail_html_file=No
         print('Email Sent successfully.')
     except Exception as e:
         print("ERROR:\n" + str(e))
+        raise
