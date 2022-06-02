@@ -180,7 +180,7 @@ except Exception:
 
 try:
     logging.info("Executing cast SQL for TARGET...")
-    spark.sql(cast_sql_source).createOrReplaceTempView("TARGET")
+    spark.sql(cast_sql_target).createOrReplaceTempView("TARGET")
     logging.info("Cast SQL executed successfully for TARGET")
 except Exception:
     logging.error("Failed to cast boolean columns to string for TARGET. Stack trace: ", exc_info=True)
