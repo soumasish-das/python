@@ -83,8 +83,7 @@ sendmail.email(to_list=args.to_list_addresses,
 shutil.copyfile(args.excel_location, os.path.join(args.output_dir, 'Backup_' + os.path.basename(args.excel_location)))
 
 # Replace all column values except for the first column with blank
-data_cols = list(data.columns)
-data[data_cols[1:]] = ''
+data[columns[1:]] = ''
 
 # Replace the original Excel file
 writer = pd.ExcelWriter(args.excel_location, engine='xlsxwriter')
@@ -98,12 +97,14 @@ header_cell_format = workbook.add_format({'bold': True, 'font_color': 'black', '
 data_cell_format = workbook.add_format({'border': 1, 'font_color': 'black', 'border_color': 'black',
                                         'bg_color': 'white'})
 
-for i in range(len(data_cols)):
-    worksheet.write(0, i, data_cols[i], header_cell_format)
-
 for i in range(len(data)):
     for j in range(len(columns)):
-        worksheet.write(i+1, j, data.iloc[i, j], data_cell_format)
+        if i == 0:
+            # Write both header and data for 1st iteration
+            worksheet.write(0, j, columns[i], header_cell_format)
+            worksheet.write(i + 1, j, data.iloc[i, j], data_cell_format)
+        else:
+            worksheet.write(i + 1, j, data.iloc[i, j], data_cell_format)
 writer.save()
 
 print("\nProgram completed successfully.")
