@@ -79,10 +79,10 @@ sendmail.email(to_list=args.to_list_addresses,
                attachment=args.attachment
                )
 
-# Create a backup copy of the Excel file before clearing contents from its columns
+# Create a backup copy of the original Excel file before clearing contents from its columns
 shutil.copyfile(args.excel_location, os.path.join(args.output_dir, 'Backup_' + os.path.basename(args.excel_location)))
 
-# Replace all column values except for the first column with blank
+# Replace all column values with blank, except for the first column
 data[columns[1:]] = ''
 
 # Replace the original Excel file
@@ -100,7 +100,7 @@ data_cell_format = workbook.add_format({'border': 1, 'font_color': 'black', 'bor
 for i in range(len(data)):
     for j in range(len(columns)):
         if i == 0:
-            # Write both header and data for 1st iteration
+            # Write both header and data for the first iteration
             worksheet.write(0, j, columns[i], header_cell_format)
             worksheet.write(i + 1, j, data.iloc[i, j], data_cell_format)
         else:
