@@ -42,7 +42,7 @@ html += '</style>\n</head>\n'
 html += '<body style="font-size: 11pt">\n'
 html += '<p>\n'
 html += 'Hi {},<br><br>\n'.format(args.to_list_names)
-html += 'Please see the EOD task status of each resource below:<br>\n</p>\n'
+html += 'Please see the status of each resource below:<br>\n</p>\n'
 html += '<table>\n'
 
 # Set the table headers
