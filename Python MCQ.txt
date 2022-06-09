@@ -1,0 +1,38 @@
+PYTHON QUESTIONS
+----------------------------
+
+1. What is the data structure used to store unique items in a collection in Python?
+   A) List	B)	Tuple	C) Set	D) Dictionary
+
+2. Which of the following snippets given below is syntactically correct?
+   A) sum (int a, int b) {
+         sum = a + b;
+		 return sum;
+	  }
+   B) func sum (int a, int b):
+         sum = a + b;
+		 return sum;
+   C) def (sum int a, int b):
+        sum = a + b;
+		  return sum;
+   D) def sum (int a, int b):
+         sum = a + b;
+		 return sum;
+
+3. What is the BEST practice to import 2 functions from an external module?
+   A) import external_module
+   B) from external_module import function_1, function_2
+   C) from external_module import *
+   D) None of the above
+   
+4. Which function is used to accept user input from the console in Python?
+   A) input	B) scanf	C) read	4) get
+
+5. What will be the output of the following code snippet?
+		data_structure = ("apple", "banana", "cherry")
+		data_structure[3] = "mango"
+		print(data_structure)
+   A) ('apple', 'banana', 'cherry')
+   B) Error
+   C) ('apple', 'banana', 'cherry', 'mango')
+   D) No output
