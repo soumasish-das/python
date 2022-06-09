@@ -7,17 +7,17 @@ PYTHON QUESTIONS
 2. Which of the following snippets given below is syntactically correct?
    A) sum (int a, int b) {
          sum = a + b;
-		 return sum;
-	  }
+	 return sum;
+      }
    B) func sum (int a, int b):
          sum = a + b;
-		 return sum;
+	 return sum;
    C) def (sum int a, int b):
         sum = a + b;
-		  return sum;
+	  return sum;
    D) def sum (int a, int b):
          sum = a + b;
-		 return sum;
+	 return sum;
 
 3. What is the BEST practice to import 2 functions from an external module?
    A) import external_module
@@ -29,10 +29,19 @@ PYTHON QUESTIONS
    A) input	B) scanf	C) read	4) get
 
 5. What will be the output of the following code snippet?
-		data_structure = ("apple", "banana", "cherry")
-		data_structure[3] = "mango"
-		print(data_structure)
+   data_structure = ("apple", "banana", "cherry")
+   data_structure[3] = "mango"
+   print(data_structure)
    A) ('apple', 'banana', 'cherry')
    B) Error
    C) ('apple', 'banana', 'cherry', 'mango')
    D) No output
+   
+
+ANSWERS
+-----------------
+1. C
+2. D
+3. B
+4. A
+5. B
