@@ -118,7 +118,7 @@ except Exception:
     sys.exit(1)
 logging.info("Read TARGET file in {} seconds".format(time.time() - t0))
 
-diff_key = args.keys
+diff_key = args.keys.upper()
 
 # -------------------------------------------------
 # Change column names of TARGET to that of SOURCE
@@ -145,7 +145,7 @@ if args.exclude_columns:
     df_source = df_source.drop(*exclude_col_list)
     df_target = df_target.drop(*exclude_col_list)
 
-    col_list_uppercase = [x.upper() for x in df_source.columns]
+    col_list_uppercase = df_source.columns
 # -----------------------------
 
 df_source.createOrReplaceTempView("RAW_SOURCE")
@@ -155,8 +155,9 @@ df_target.createOrReplaceTempView("RAW_TARGET")
 # Cast boolean columns as string
 # ------------------------------
 cast_sql_source = cast_sql_target = "SELECT "
+dtype_dict = dict(df_source.dtypes)
 for col in col_list_uppercase:
-    if dict(df_source.dtypes)[col] == "boolean":
+    if dtype_dict[col] == "boolean":
         cast_sql_source += "CAST({} AS STRING) {}, ".format(col, col)
         cast_sql_target += "CAST({} AS STRING) {}, ".format(col, col)
     else:
@@ -219,7 +220,7 @@ diff_key_col_name = "KEY[{}]".format(diff_key.replace(',', ':'))
 sql = "SELECT {} AS `{}`,\n".format(diff_key_sql_join_source, diff_key_col_name)
 for col in col_list_uppercase:
     sql += "s.{} AS {}_SOURCE,\nt.{} AS {}_TARGET,\n".format(col, col, col, col)
-    if dict(df_source.dtypes)[col] == "string":
+    if dtype_dict[col] == "string":
         sql += "CASE WHEN coalesce(s.{},'') = coalesce(t.{},'') ".format(col, col)
         sql += "THEN 'No Diff' ELSE 'Text Diff' END AS {}_DIFF,\n".format(col)
     else:
