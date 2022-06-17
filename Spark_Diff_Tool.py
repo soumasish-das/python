@@ -151,11 +151,13 @@ if args.exclude_columns:
 df_source.createOrReplaceTempView("RAW_SOURCE")
 df_target.createOrReplaceTempView("RAW_TARGET")
 
+# Get datatypes of columns as a dictionary of format Key=column and Value=datatype
+dtype_dict = dict(df_source.dtypes)
+
 # ------------------------------
 # Cast boolean columns as string
 # ------------------------------
 cast_sql_source = cast_sql_target = "SELECT "
-dtype_dict = dict(df_source.dtypes)
 for col in col_list_uppercase:
     if dtype_dict[col] == "boolean":
         cast_sql_source += "CAST({} AS STRING) {}, ".format(col, col)
@@ -198,7 +200,7 @@ diff_key_sql_join_target = ""
 
 for item in diff_key.split(","):
     try:
-        col_list_uppercase.remove(item.upper())
+        col_list_uppercase.remove(item)
     except Exception:
         logging.critical("ERROR: Key \"{}\" is not one of the unexcluded datasource columns {}"
                          .format(item.upper(), df_source.columns))
