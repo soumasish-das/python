@@ -1,0 +1,4 @@
+admin_system,created_date_time,display_policyNum,pkey,customer_first_nm,customer_iss_age,customer_last_nm,customer_nm,query_date,rec_insrt_user,record_type,source_delete_indicator,writing_agent
+Cyberlife9701,2022-05-26 20:27:00,4338255077,Cyberlife9701::4338255077,RICK,77,OCONNELL,RICK OCONNELL,2010-08-15,etl_pds_user,policy::25::customer_pending,N,00000MK002
+Cyberlife9701,2022-05-26 20:28:00,4338255078,Cyberlife9701::4338255078,EVELYN,75,OCONNELL,EVELYN OCONNELL,2010-08-15,etl_pds_user,policy::25::customer_pending,N,00000MK003
+Cyberlife9701,2022-05-26 20:29:00,4338255079,Cyberlife9701::4338255079,ALEXANDER,50,OCONNELL,ALEXANDER OCONNELL,2010-08-15,etl_pds_user,policy::25::customer_pending,N,00000MK004
